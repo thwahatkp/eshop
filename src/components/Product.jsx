@@ -2,11 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 let Color = ({ color }) =>
-    <div className={`${color} h-5 w-5 rounded-full shadow-md mr-2`}></div>
+    <div className={`${color} h-5 w-5 cursor-pointer rounded-full shadow-md mr-2`}></div>
 
 
 let SizeButton = ({ name, onClick }) => {
-    return <div onClick={onClick} className="border-2 border-gray-300 rounded-md text-xs px-2 py-1 mr-2">{name}</div>
+    return <div onClick={onClick} className="cursor-pointer border-2 border-gray-300 rounded-md text-xs px-2 py-1 mr-2">{name}</div>
 }
 
 const Product = (props) => {

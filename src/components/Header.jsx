@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+
 const Header = () => {
   return (
     <>
@@ -10,16 +11,16 @@ const Header = () => {
           <h1 className="text-3xl text-gray-600 ml-2">Logo</h1>
         </div>
         <div className="mt-2">
-          <NavLink to="/" className="text-gray-600 hover:text-purple-600 p-4">
+          <NavLink to="/" className={({ isActive }) => isActive ? "text-purple-800 hover:text-purple-600 p-4" : "text-gray-600 hover:text-purple-600 p-4"}>
             Home
           </NavLink>
-          <NavLink to="/shop" className="text-gray-600 hover:text-purple-600 p-4">
+          <NavLink to="/shop" className={({ isActive }) => isActive ? "text-purple-800 hover:text-purple-600 p-4" : "text-gray-600 hover:text-purple-600 p-4"}>
             Shop
           </NavLink>
-          <NavLink to="/blog" className="text-gray-600 hover:text-purple-600 p-4">
+          <NavLink to="/blog" className={({ isActive }) => isActive ? "text-purple-800 hover:text-purple-600 p-4" : "text-gray-600 hover:text-purple-600 p-4"}>
             Blog
           </NavLink>
-          <NavLink to="/contact" className="text-gray-600 hover:text-purple-600 p-4">
+          <NavLink to="/contact" className={({ isActive }) => isActive ? "text-purple-800 hover:text-purple-600 p-4" : "text-gray-600 hover:text-purple-600 p-4"}>
             Contact
           </NavLink>
           <NavLink
@@ -42,6 +43,7 @@ const Header = () => {
             </svg>
             Cart (0)
           </NavLink>
+
         </div>
       </div>
     </>
