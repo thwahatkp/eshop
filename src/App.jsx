@@ -1,4 +1,4 @@
-import { Provider } from "react-redux";
+
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -12,13 +12,11 @@ import store from "./redux/store";
 function App() {
   return (
     <div className="container h-8 mx-auto p-5">
-      <Provider store={store}>
         <Header />
         <HeroSection />
         <ProductSection />
         <NewsLetter />
         <Footer />
-      </Provider>
     </div>
   );
 }

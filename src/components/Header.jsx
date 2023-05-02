@@ -8,7 +8,7 @@ const Header = () => {
       <div className="md:flex md:flex-row md:justify-between text-center">
         <div className="flex flex-row justify-center">
           <div className="bg-gradient-to-r from-purple-600 to-red-400 w-10 h-10 rounded-lg"></div>
-          <h1 className="text-3xl text-gray-600 ml-2">Logo</h1>
+          <h1 className="text-3xl text-gray-600 ml-2">E - Shop</h1>
         </div>
         <div className="mt-2">
           <NavLink to="/" className={({ isActive }) => isActive ? "text-purple-800 hover:text-purple-600 p-4" : "text-gray-600 hover:text-purple-600 p-4"}>
