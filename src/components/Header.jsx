@@ -1,31 +1,73 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import UilBars from "@iconscout/react-unicons/icons/uil-bars";
+import UilX from "@iconscout/react-unicons/icons/uil-multiply";
 
 const Header = () => {
+  const [isMobile, setIsMobile] = useState(false);
   return (
     <>
       <div className="md:flex md:flex-row md:justify-between text-center">
-        <div className="flex flex-row justify-center">
+        <div className="flex flex-row justify-center items-center relative">
+          <div
+            className="md:hidden absolute  left-0 cursor-pointer"
+            onClick={() => setIsMobile(!isMobile)}
+          >
+            {isMobile ? (
+              <UilX size={30} color="#91939d" />
+            ) : (
+              <UilBars size={30} color="#91939d" />
+            )}
+          </div>
           <div className="bg-gradient-to-r from-purple-600 to-red-400 w-10 h-10 rounded-lg"></div>
           <h1 className="text-3xl text-gray-600 ml-2">E - Shop</h1>
         </div>
-        <div className="mt-2">
-          <NavLink to="/" className={({ isActive }) => isActive ? "text-purple-800 hover:text-purple-600 p-4" : "text-gray-600 hover:text-purple-600 p-4"}>
+        <div
+          className={` mt-2 flex flex-col md:block ${!isMobile && "hidden"}`}
+        >
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-800 border-0  md:border rounded-full py-2 border-purple-600 px-4"
+                : "text-gray-600 hover:text-purple-600 py-3 px-4 "
+            }
+          >
             Home
           </NavLink>
-          <NavLink to="/shop" className={({ isActive }) => isActive ? "text-purple-800 hover:text-purple-600 p-4" : "text-gray-600 hover:text-purple-600 p-4"}>
+          <NavLink
+            to="/shop"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-800 border-0  md:border rounded-full py-2 border-purple-600 px-4"
+                : "text-gray-600 hover:text-purple-600 py-3 px-4"
+            }
+          >
             Shop
           </NavLink>
-          <NavLink to="/blog" className={({ isActive }) => isActive ? "text-purple-800 hover:text-purple-600 p-4" : "text-gray-600 hover:text-purple-600 p-4"}>
+          <NavLink
+            to="/blog"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-800 border-0  md:border rounded-full py-2 border-purple-600 px-4"
+                : "text-gray-600 hover:text-purple-600 py-3 px-4"
+            }
+          >
             Blog
           </NavLink>
-          <NavLink to="/contact" className={({ isActive }) => isActive ? "text-purple-800 hover:text-purple-600 p-4" : "text-gray-600 hover:text-purple-600 p-4"}>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-800 border-0  md:border rounded-full py-2 border-purple-600 px-4 mr-1"
+                : "text-gray-600 hover:text-purple-600 py-3 px-4 "
+            }
+          >
             Contact
           </NavLink>
           <NavLink
             href="/"
-            className="bg-purple-600 text-gray-50 hover:bg-purple-700 px-5 p-3 rounded-full"
+            className="bg-purple-600 text-gray-50 hover:bg-purple-700 px-5 p-3 rounded-full hidden md:inline"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +85,12 @@ const Header = () => {
             </svg>
             Cart (0)
           </NavLink>
-
+          <Link
+            to="/contact"
+            className={"md:ml-2 text-gray-600 hover:text-purple-600 py-3"}
+          >
+            Login
+          </Link>
         </div>
       </div>
     </>
