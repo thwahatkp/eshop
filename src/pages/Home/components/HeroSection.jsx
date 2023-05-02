@@ -5,7 +5,7 @@ const HeroSection = () => {
     <>
       <div className="md:flex md:flex-row mt-12 md:mt-20">
         <div className="md:w-2/5 flex justify-center flex-col items-center">
-          <h2 className="font-serif text-5xl text-gray-600 mb-4  text-center md:self-start">
+          <h2 className="font-serif text-5xl text-gray-600 mb-4 text-center md:text-start md:self-start">
             Lorem ipsum dolor sit
           </h2>
           <p className="uppercase text-gray-600 tracking-wide  text-center md:self-start">

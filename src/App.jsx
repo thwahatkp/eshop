@@ -1,22 +1,21 @@
-
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Home from "./pages/Home/Home";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import HeroSection from "./components/HeroSection";
-import NewsLetter from "./components/NewsLetter";
-import ProductSection from "./components/ProductSection";
+
 import store from "./redux/store";
-
-
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
-    <div className="container h-8 mx-auto p-5">
-        <Header />
-        <HeroSection />
-        <ProductSection />
-        <NewsLetter />
-        <Footer />
+    <div className="container mx-auto p-5">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
