@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import UilBars from "@iconscout/react-unicons/icons/uil-bars";
 import UilX from "@iconscout/react-unicons/icons/uil-multiply";
 import UilAccount from "@iconscout/react-unicons/icons/uil-user";
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
+
+  let location = useLocation()
+  console.log(location)
 
   let toggleMobile = () => {
     setIsMobile(!isMobile);
@@ -144,10 +147,9 @@ const Header = () => {
             onClick={toggleMobile}
             to="/login"
             className={({ isActive }) =>
-              `${
-                isActive
-                  ? "md:ml-4 text-gray-600 hover:text-purple-600 py-3 text-purple-600"
-                  : "md:ml-4 text-gray-600 hover:text-purple-600 py-3"
+              `${isActive
+                ? "md:ml-4  hover:text-purple-600 py-3 text-purple-600"
+                : "md:ml-4 text-gray-600 hover:text-purple-600 py-3"
               }`
             }
           >

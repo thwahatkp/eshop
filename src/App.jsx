@@ -6,6 +6,7 @@ import Header from "./components/Header";
 
 import store from "./redux/store";
 import Login from "./pages/Login/Login";
+import Signup from "./pages/Signup/Signup";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
       <Footer />
     </div>
