@@ -29,6 +29,7 @@ const Header = () => {
           </div>
           <Link to="/">
             <img
+              data-aos="fade-down"
               src="images/eshop-full.svg"
               className="rounded-lg w-auto h-10 md:h-11"
               alt=""

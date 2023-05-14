@@ -6,7 +6,7 @@ let Color = ({ color }) =>
 
 
 let SizeButton = ({ name, onClick }) => {
-    return <div onClick={onClick} className="cursor-pointer border-2 border-gray-300 rounded-md text-xs px-2 py-1 mr-2">{name}</div>
+    return <div onClick={onClick} className="cursor-pointer border-2 hover:scale-110 border-gray-300 rounded-md text-xs px-2 py-1 mr-2">{name}</div>
 }
 
 const Product = (props) => {
@@ -14,7 +14,7 @@ const Product = (props) => {
     return (
         <div className='shadow-lg rounded-lg'>
             <Link to='/'>
-                <img src={"images/products/" + src} className='rounded-tl-lg rounded-tr-lg' alt="" />
+                <img src={"images/products/" + src} className='rounded-tl-lg hover:scale-105 rounded-tr-lg' alt="" />
             </Link>
             <div className="p-5">
                 <h3><Link>Men's T-Shirt</Link></h3>
@@ -31,7 +31,7 @@ const Product = (props) => {
                         })
                     }
                 </div>
-                <div className="flex flex-col xl:flex-row justify-between">
+                <div className="flex flex-col justify-between">
                     <Link className='bg-gradient-to-r from-red-600 to-pink-500 rounded-full py-2 px-4 text-gray-50 flex flex-row hover:to-pink-600 text-sm justify-center my-2'>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

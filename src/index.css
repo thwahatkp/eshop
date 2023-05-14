@@ -8,4 +8,6 @@ html {
 
 * {
     transition: ease 0.5s;
+    box-sizing: border-box;
 }
+
