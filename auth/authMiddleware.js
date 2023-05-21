@@ -3,7 +3,7 @@ const { verifyToken } = require("./token");
 
 let auth = async (req, res, next) => {
   try {
-    let token = req.headers.authorization;
+    let token = req.cookies.token;
     if (!!token) {
       let response = verifyToken(token);
       if (response === "TokenExpiredError") {
@@ -14,7 +14,9 @@ let auth = async (req, res, next) => {
           .status(401)
           .json({ staus: false, message: "please provide a valid token" });
       }
-      let user = await model.Users.findById(response._id).select("-password -__v -createdAt -updatedAt");
+      let user = await model.Users.findById(response._id).select(
+        "-password -__v -createdAt -updatedAt"
+      );
       req.user = user;
       next();
     } else {
