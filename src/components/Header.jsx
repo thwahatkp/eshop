@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import React, {  useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import UilBars from "@iconscout/react-unicons/icons/uil-bars";
 import UilX from "@iconscout/react-unicons/icons/uil-multiply";
 import UilAccount from "@iconscout/react-unicons/icons/uil-user";
@@ -7,12 +7,11 @@ import UilAccount from "@iconscout/react-unicons/icons/uil-user";
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
 
-  let location = useLocation()
-  console.log(location)
 
   let toggleMobile = () => {
     setIsMobile(!isMobile);
   };
+  
   return (
     <>
       <div className="md:flex md:flex-row md:justify-between text-center">

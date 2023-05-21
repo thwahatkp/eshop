@@ -10,8 +10,17 @@ import Signup from "./pages/Signup/Signup";
 import { useEffect } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import axios from 'axios'
+import { useDispatch, useSelector } from "react-redux";
+import { getLoggedDetails, login } from "./redux/reducers/user";
+// import dotenv from 'dotenv'
+axios.defaults.withCredentials = true
+// dotenv.config()
+
 
 function App() {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/"
+  const dispatch = useDispatch()
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -20,6 +29,15 @@ function App() {
       // once: true
     });
   }, [])
+
+  useEffect(() => {
+    // console.log("called")
+    dispatch(getLoggedDetails('call'))
+  }, [dispatch])
+
+  const state = useSelector((state) => state)
+  console.log(state)
+
   return (
     <div className="container mx-auto p-5">
       <Header />
