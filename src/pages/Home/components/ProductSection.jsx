@@ -5,8 +5,8 @@ const ProductSection = () => {
     return (
         <div className='my-20'>
             <div className="flex flex-row justify-between">
-                <h2 data-aos="fade-right" className='text-3xl'>Men's Collection</h2>
-                <Link data-aos="fade-left" className='text-xl flex flex-row' to="/">
+                <h2 className='text-3xl'>Men's Collection</h2>
+                <Link className='text-xl flex flex-row' to="/">
                     View All
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-7 ml-1">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />

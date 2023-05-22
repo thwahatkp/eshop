@@ -1,17 +1,52 @@
-import React, {  useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import UilBars from "@iconscout/react-unicons/icons/uil-bars";
 import UilX from "@iconscout/react-unicons/icons/uil-multiply";
 import UilAccount from "@iconscout/react-unicons/icons/uil-user";
+import { useDispatch, useSelector } from "react-redux";
+import { getLoggedDetails } from "../redux/reducers/user";
+import Swal from 'sweetalert2'
+import axios from "axios";
 
 const Header = () => {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/"
   const [isMobile, setIsMobile] = useState(false);
+  const [userDetails, setUserDetails] = useState({})
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    // if (localStorage.getItem('rememberMe')) {
+    dispatch(getLoggedDetails())
+    // }
+  }, [])
+
+  let details = useSelector((state) => state.userDetails)
+
+  let handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure logout?',
+      // text: "Are you sure logout?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${API_URL}logout`).then((res) => {
+          localStorage.removeItem("details")
+          dispatch(getLoggedDetails())
+        })
+      }
+    })
+  }
 
   let toggleMobile = () => {
     setIsMobile(!isMobile);
   };
-  
+
   return (
     <>
       <div className="md:flex md:flex-row md:justify-between text-center">
@@ -143,18 +178,23 @@ const Header = () => {
             </div>
           </NavLink>
 
-          <NavLink
-            onClick={toggleMobile}
-            to="/login"
-            className={({ isActive }) =>
-              `${isActive
-                ? "md:ml-4  hover:text-purple-600 py-3 text-purple-600"
-                : "md:ml-4 text-gray-600 hover:text-purple-600 py-3"
-              }`
-            }
-          >
-            Login
-          </NavLink>
+          {
+            details.logged
+              ? <Link onClick={handleLogout} className="md:ml-4 hover:text-purple-600">Logout</Link>
+              :
+              <NavLink
+                onClick={toggleMobile}
+                to="/login"
+                className={({ isActive }) =>
+                  `${isActive
+                    ? "md:ml-4  hover:text-purple-600 py-3 text-purple-600"
+                    : "md:ml-4 text-gray-600 hover:text-purple-600 py-3"
+                  }`
+                }
+              >
+                Login
+              </NavLink>
+          }
         </div>
       </div>
     </>

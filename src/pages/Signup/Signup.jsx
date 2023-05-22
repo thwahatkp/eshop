@@ -3,7 +3,8 @@ import UilEye from "@iconscout/react-unicons/icons/uil-eye";
 import UilEyeSlash from "@iconscout/react-unicons/icons/uil-eye-slash";
 import { useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getLoggedDetails } from "../../redux/reducers/user";
 
 
 const Signup = () => {
@@ -11,6 +12,7 @@ const Signup = () => {
     const [passShow, setPassShow] = useState(false);
     const [error, setError] = useState({})
     const [details, setDetails] = useState({})
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
 
@@ -24,6 +26,7 @@ const Signup = () => {
         axios.post(`${API_URL}register`, details).then((res) => {
             if (res.data.status === 201) {
                 localStorage.setItem('details', JSON.stringify(res.data.data))
+                dispatch(getLoggedDetails())
                 navigate('/')
             }
         }).catch((err => {
