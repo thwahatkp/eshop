@@ -7,7 +7,7 @@ const loginUser = require("../controller/login");
 var router = express.Router();
 
 router.get("/", [auth], async function (req, res) {
-  console.log(req.user)
+  console.log(req.user);
   res.status(200).json(req.user);
 });
 

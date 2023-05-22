@@ -5,12 +5,15 @@ let loginUser = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
       let { username, password } = req.body;
-      let search = {username:username}
-      if(!isNaN(username)){
-        username = parseInt(username)
-        search =  {mobile:username}
+      console.log(username);
+      let search = { username: username };
+      if (!isNaN(username)) {
+        username = parseInt(username);
+        search = { mobile: username };
       }
-      let user = await model.Users.findOne(search).select("-__v -createdAt -updatedAt");
+      let user = await model.Users.findOne({
+        $or: [search, { email: username }],
+      }).select("-__v -createdAt -updatedAt");
       if (user) {
         let pass = user.validatePassword(password, user.password);
         if (pass) {
