@@ -24,7 +24,6 @@ function App() {
     });
   }, [])
   let logged = useSelector((state) => state.userDetails.logged)
-  console.log(logged)
   return (
     <div className="container mx-auto p-5">
       <Header />

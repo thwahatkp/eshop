@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import UilBars from "@iconscout/react-unicons/icons/uil-bars";
 import UilX from "@iconscout/react-unicons/icons/uil-multiply";
 import UilAccount from "@iconscout/react-unicons/icons/uil-user";
+import UilLogout from "@iconscout/react-unicons/icons/uil-sign-right";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoggedDetails } from "../redux/reducers/user";
 import Swal from 'sweetalert2'
@@ -11,26 +12,26 @@ import axios from "axios";
 const Header = () => {
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/"
   const [isMobile, setIsMobile] = useState(false);
+  const [accoutOpen, setAccountOpen] = useState(false);
   const [userDetails, setUserDetails] = useState({})
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    // if (localStorage.getItem('rememberMe')) {
     dispatch(getLoggedDetails())
-    // }
   }, [])
 
   let details = useSelector((state) => state.userDetails)
 
   let handleLogout = () => {
+    setAccountOpen(false)
     Swal.fire({
       title: 'Are you sure logout?',
       // text: "Are you sure logout?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: 'bg-purple-600',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, logout'
     }).then((result) => {
@@ -95,7 +96,8 @@ const Header = () => {
             </NavLink>
           </div>
           <div className="absolute -right-4 md:hidden px-3">
-            <NavLink>
+            <NavLink
+            >
               <UilAccount
                 size={35}
                 className="text-gray-500 hover:text-gray-600"
@@ -180,7 +182,22 @@ const Header = () => {
 
           {
             details.logged
-              ? <Link onClick={handleLogout} className="md:ml-4 hover:text-purple-600">Logout</Link>
+              ? <div className="mx-3 inline-flex relative">
+                <div onClick={() => setAccountOpen(!accoutOpen)} className="flex items-center justify-center absolute -translate-y-[68%] cursor-pointer">
+                  <UilAccount
+                    size={35}
+                    className="text-gray-500 hover:text-gray-600"
+                  />
+                </div>
+                {
+                  accoutOpen && <div className="h-1/5  w-32 relative md:absolute -right-16 bg-gray-500 top-5">
+                    <ul className="bg-purple-200 rounded-lg flex flex-col space-y-2 p-2">
+                      <li className="font-semibold hover:bg-purple-400 hover:cursor-pointer hover:rounded-lg">Profile</li>
+                      <li onClick={handleLogout} className="font-semibold hover:bg-purple-400 hover:cursor-pointer hover:rounded-lg">Logout</li>
+                    </ul>
+                  </div>
+                }
+              </div>
               :
               <NavLink
                 onClick={toggleMobile}
