@@ -1,7 +1,7 @@
-const model = require("../model");
-const { verifyToken } = require("./token");
+import { Users } from "../model";
+import { verifyToken } from "../auth/token";
 
-let auth = async (req, res, next) => {
+let auth = async (req : any, res :any, next :any) => {
   try {
     let token = req.cookies.token;
     if (!!token) {
@@ -14,7 +14,7 @@ let auth = async (req, res, next) => {
           .status(401)
           .json({ staus: false, message: "please provide a valid token" });
       }
-      let user = await model.Users.findById(response._id).select(
+      let user = await Users.findById(response._id).select(
         "-password -__v -createdAt -updatedAt"
       );
       req.user = user;
@@ -29,4 +29,5 @@ let auth = async (req, res, next) => {
   }
 };
 
-module.exports.auth = auth;
+const _auth = auth;
+export { _auth as auth };

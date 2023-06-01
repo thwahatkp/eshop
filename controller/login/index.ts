@@ -1,17 +1,21 @@
-const { generateToken } = require("../../auth/token");
-const model = require("../../model");
+import { Request } from "express";
+import { generateToken } from "../../auth/token";
+import { Users } from "../../model";
 
-let loginUser = (req) => {
+interface Search {
+  mobile?: number; username?: string
+}
+
+let loginUser = (req: Request) => {
   return new Promise(async (resolve, reject) => {
     try {
       let { username, password } = req.body;
-      console.log(username);
-      let search = { username: username };
+      let search: Search = { username: username };
       if (!isNaN(username)) {
         username = parseInt(username);
         search = { mobile: username };
       }
-      let user = await model.Users.findOne({
+      let user = await Users.findOne({
         $or: [search, { email: username }],
       }).select("-__v -createdAt -updatedAt");
       if (user) {
@@ -19,7 +23,7 @@ let loginUser = (req) => {
         if (pass) {
           user = user.toObject();
           delete user.password;
-          let token = generateToken({ _id: user._id });
+          let token: string = generateToken({ _id: user._id });
           user.token = token;
           return resolve({ status: 200, data: user });
         } else {
@@ -34,4 +38,4 @@ let loginUser = (req) => {
   });
 };
 
-module.exports = loginUser;
+export default loginUser;

@@ -1,14 +1,15 @@
-const { generateToken } = require("../../auth/token");
-const model = require("../../model");
-const passport = require("passport-github2");
+import express from 'express';
+import { generateToken } from "../../auth/token";
+import { Users } from "../../model";
+// import passport from "passport-github2";
 
-exports.registerUser = (req) => {
+export function registerUser(req: express.Request) {
   return new Promise(async (resolve, reject) => {
     try {
       let { firstname, lastname, username, mobile, password, email } = req.body;
-      let mobileExist = await model.Users.findOne({ mobile: mobile });
-      let emailExist = await model.Users.findOne({ email: email });
-      let usernameExist = await model.Users.findOne({ username: username });
+      let mobileExist = await Users.findOne({ mobile: mobile });
+      let emailExist = await Users.findOne({ email: email });
+      let usernameExist = await Users.findOne({ username: username });
       if (usernameExist) {
         return reject({
           status: 302,
@@ -30,13 +31,15 @@ exports.registerUser = (req) => {
           message: "Email address already exists",
         });
       }
-      let response = model.Users({
+
+      let response = new Users({
         fname: firstname,
         lname: lastname,
         mobile: mobile,
         username: username,
         email: email,
       });
+
       response.password = response.generatePasswordHash(password);
       response.save();
       response = response.toObject();
@@ -51,9 +54,9 @@ exports.registerUser = (req) => {
       reject({ status: 400, message: error.message });
     }
   });
-};
+}
 
-exports.githubRegister = () => {
+export function githubRegister(req: express.Request) {
   return new Promise((resolve, reject) => {
     try {
       resolve("called");
@@ -61,4 +64,4 @@ exports.githubRegister = () => {
       reject({ status: 400, message: error.message });
     }
   });
-};
+}
