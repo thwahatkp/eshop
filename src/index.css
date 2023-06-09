@@ -1,13 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: ease .3s
+}
+
+.primary-gradient{
+  @apply bg-gradient-to-r from-red-600 to-pink-500 
+  /* @apply bg-gradient-to-r from-pink-400 to-pink-600 */
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html {
-    scroll-behavior: smooth;
-}
 
-* {
-    transition: ease 0.5s;
-    box-sizing: border-box;
-}
 

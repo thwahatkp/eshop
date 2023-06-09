@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import value from "./reducers/value";
-import userDetails from "./reducers/user";
+import layout from "./reducers/layout";
 
-let store = configureStore({
+const store = configureStore({
   reducer: {
-    value: value,
-    userDetails: userDetails,
+    layout: layout,
   },
 });
 
