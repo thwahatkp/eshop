@@ -81,7 +81,7 @@ const TopCart = () => {
           return (
             <>
               <div
-                className="box product bg-white p-5 relative rounded-md shadow m-5 flex flex-col items-center justify-center"
+                className="box product bg-white p-5 relative rounded-md shadow m-5 flex flex-col items-center justify-center transition ease-in-out duration-500 hover:scale-105 cursor-pointer"
                 key={index}
               >
                 {/* <div className="nametop d_flex relative w-full flex justify-between"></div> */}

@@ -39,7 +39,7 @@ const Card = () => {
             <div className="box cursor-pointer" key={index}>
               <div className="img">
                 <img
-                  className="w-full h-full hover:scale-105 transition"
+                  className="w-full h-full hover:scale-105 transition ease-in-out duration-300"
                   src={val.cover}
                   alt=""
                 />

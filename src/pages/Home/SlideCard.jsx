@@ -32,7 +32,7 @@ const Sdata = [
 const SlideCard = () => {
   const settings = {
     dots: true,
-    // pauseOnHover:true,
+    pauseOnHover: false,
     infinite: true,
     fade: true,
     autoplay: true,

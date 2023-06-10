@@ -1,17 +1,29 @@
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { category, sidebar } from "../../redux/reducers/layout";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  // const state = useSelector(state=>state)
+  const location = useLocation();
+  const [isHome, setIsHome] = useState(false);
+
+  useEffect(() => {
+    const homepage = location.pathname === "/" ? true : false;
+    setIsHome(homepage);
+  }, [location]);
+  console.log(location); // const state = useSelector(state=>state)
   const layout = useSelector((state) => state.layout);
   // Toogle Menu
   return (
     <>
       <header className=" h-12 lg:h-[9vh] shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]">
         <div className="max-w-[90%] m-auto flex justify-between">
-          <div className="h-10 lg:h-10  bg-[#f6f9fc] py-0 md:px-[30px] rounded-[5px] mt-[5px] flex justify-between items-center cursor-pointer">
+          <div
+            className={`${
+              !isHome && "opacity-0"
+            } h-10 lg:h-10  opacityl-100 transition ease-in-out  duration-500 bg-[#f6f9fc] py-0 md:px-[30px] rounded-[5px] mt-[5px] flex justify-between items-center cursor-pointer`}
+          >
             <span className="fa-solid fa-border-all mr-2 md:mr-5 text-xl lg:text-[30px] relative top-1/2 -translate-y-1/2"></span>
             <h4
               onClick={() => dispatch(category(!layout.category))}
@@ -25,6 +37,7 @@ const Navbar = () => {
               ></i>
             </h4>
           </div>
+          <div></div>
 
           <i
             onClick={() => dispatch(sidebar(true))}
