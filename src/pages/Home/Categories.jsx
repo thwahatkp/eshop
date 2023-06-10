@@ -59,7 +59,7 @@ const Categories = () => {
             {data.map((value, index) => {
               return (
                 <div
-                  className="box transition py-0 px-5 flex f_flex hover:text-primary cursor-pointer"
+                  className="box transition py-0 px-5 flex f_flex hover:text-primary hover:shadow-md rounded-xl cursor-pointer"
                   key={index}
                 >
                   <img

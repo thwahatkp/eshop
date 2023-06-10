@@ -1,16 +1,14 @@
-import Categories from "./Categories";
-import SliderHome from "./SliderHome";
-import "./Home.css";
-
-const Home = () => {
+import FlashDeals from "./Deals/FlashDeals";
+import Home from "./Home";
+import TopCategory from "./TopCategory/TopCategory";
+function HomePage() {
   return (
-    <section>
-      <div className="container max-w-[90%] flex flex-col lg:flex-row lg:justify-between m-auto">
-        <Categories />
-        <SliderHome />
-      </div>
-    </section>
+    <>
+      <Home />
+      <FlashDeals />
+      <TopCategory />
+    </>
   );
-};
+}
 
-export default Home;
+export default HomePage;

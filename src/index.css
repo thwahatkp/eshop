@@ -12,6 +12,39 @@
   transition: ease .3s
 }
 
+/*----- control btn -------*/
+.control-btn .next,
+.control-btn .prev {
+  position: absolute;
+  top: 40%;
+  width: 30px;
+  height: 30px;
+  line-height: 15px;
+  background: #0f336091;
+  border-radius: 50%;
+  transform: 0.5s;
+  z-index: 5;
+}
+.control-btn .prev {
+  left: -20px;
+}
+.control-btn .next {
+  right: -20px;
+}
+.control-btn .prev i,
+.control-btn .next i {
+  font-size: 20px;
+  transition: 0.5s;
+  color: #fff;
+}
+.control-btn .prev:hover,
+.control-btn .next:hover {
+  background: #e94560af;
+  color: white;
+  cursor: pointer;
+}
+/*----- control btn -------*/
+
 .primary-gradient{
   @apply bg-gradient-to-r from-red-600 to-pink-500 
   /* @apply bg-gradient-to-r from-pink-400 to-pink-600 */

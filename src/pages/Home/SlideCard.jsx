@@ -34,46 +34,49 @@ const SlideCard = () => {
     dots: true,
     // pauseOnHover:true,
     infinite: true,
+    fade: true,
+    autoplay: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
     appendDots: (dots) => {
       return <ul style={{ margin: "0px" }}>{dots}</ul>;
     },
   };
   return (
     <>
-      <Slider {...settings}>
-        {Sdata.map((value, index) => {
-          return (
-            <>
-              <div
-                className="box flex flex-col max-h-[40%] lg:max-h-none items-center lg:items-start lg:flex-row justify-between lg:mt-[80px]"
-                key={index}
-              >
-                <div className="left flex order-2 lg:order-none flex-col items-center lg:items-start first-letter:lg:max-w-none lg:w-[85%]">
-                  <h1 className="text-center lg:text-left text-3xl leading-10 lg:text-[45px] lg:leading-[55px] lg:mt-[50px]  lg:mb-[20px] font-semibold">
-                    {value.title}
-                  </h1>
-                  <p className="text-center lg:text-left  my-5 mx-0">
-                    {value.desc}
-                  </p>
-                  <button className="py-[10px]  px-10 font-bold text-white rounded-[8px] bg-primary ">
-                    Visit Collections
-                  </button>
-                </div>
-                <div className="right order-1 lg:order-none mt-10 lg:mt-0 flex items-center justify-center">
-                  <img
-                    className="h-56 lg:h-full object-center"
-                    src={value.cover}
-                    alt=""
-                  />
+      <div className="w-full">
+        <Slider {...settings}>
+          {Sdata.map((value, index) => {
+            return (
+              <div key={index}>
+                <div
+                  className="box flex flex-col max-h-[40%] lg:max-h-none items-center lg:items-start lg:flex-row justify-between lg:mt-[80px]"
+                  key={index}
+                >
+                  <div className="left flex order-2 lg:order-none flex-col items-center lg:items-start first-letter:lg:max-w-none lg:w-[85%]">
+                    <h1 className="text-center lg:text-left text-2xl leading-10 lg:text-[45px] lg:leading-[55px] lg:mt-[50px]  lg:mb-[20px] font-semibold">
+                      {value.title}
+                    </h1>
+                    <p className="text-center text-sm md:text-base lg:text-left  my-5 mx-0">
+                      {value.desc}
+                    </p>
+                    <button className="py-[10px]  px-10 font-bold text-white rounded-[8px] bg-primary mb-8 lg:mb-0">
+                      Visit Collections
+                    </button>
+                  </div>
+                  <div className="right order-1 lg:order-none mt-10 lg:mt-0 flex items-center justify-center">
+                    <img
+                      className="h-56 lg:h-full object-center"
+                      src={value.cover}
+                      alt=""
+                    />
+                  </div>
                 </div>
               </div>
-            </>
-          );
-        })}
-      </Slider>
+            );
+          })}
+        </Slider>
+      </div>
     </>
   );
 };
