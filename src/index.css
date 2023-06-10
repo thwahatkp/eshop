@@ -50,6 +50,14 @@
   /* @apply bg-gradient-to-r from-pink-400 to-pink-600 */
 }
 
+.container{
+  @apply max-w-[90%] m-auto
+}
+
+.row{
+  @apply w-1/2
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
