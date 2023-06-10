@@ -45,7 +45,7 @@ const FlashCard = ({ productItems }) => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-        //   dots: true,
+          //   dots: true,
         },
       },
       {
@@ -99,7 +99,7 @@ const FlashCard = ({ productItems }) => {
                   <i className="fa fa-star text-[15px] text-[#ffcd4e] my-[5px] mx-[5px] mb-0"></i>
                 </div>
                 <div className="price flex justify-between text-[#e94560]">
-                  <h4>${productItems.price}.00 </h4>
+                  <h4>₹{productItems.price}.00 </h4>
                   {/* step : 3  
                      if hami le button ma click garryo bahne 
                     */}

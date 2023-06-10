@@ -7,12 +7,12 @@ const NewArrivals = () => {
       <section className="NewArrivals background bg-[#f6f9fc] py-[50px]">
         <div className="container max-w-[90%] m-auto">
           <div className="heading d_flex flex justify-between">
-            <div className="heading-left row  f_flex w-1/2 flex ">
+            <div className="heading-left row  f_flex w-1/2 flex items-center">
               <img
                 src="https://img.icons8.com/glyph-neue/64/26e07f/new.png"
                 className="w-[40px] h-[40px] mt-[5px]"
               />
-              <h2 className="text-[25px] m-[5px] font-semibold">
+              <h2 className="text-xl lg:text-[25px] m-[5px] font-semibold">
                 New Arrivals{" "}
               </h2>
             </div>

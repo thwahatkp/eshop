@@ -33,16 +33,20 @@ const Card = () => {
   ];
   return (
     <>
-      <div className="content grid grid-cols-6 gap-[30px] product bg-[#fff] p-5 relative rounded-lg shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5">
+      <div className="content  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-[30px] product bg-[#fff] p-5 relative rounded-lg shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5">
         {Ndata.map((val, index) => {
           return (
-            <div className="box" key={index}>
+            <div className="box cursor-pointer" key={index}>
               <div className="img">
-                <img className="w-full h-full" src={val.cover} alt="" />
+                <img
+                  className="w-full h-full hover:scale-105 transition"
+                  src={val.cover}
+                  alt=""
+                />
               </div>
-              <h4 className="font-normal">{val.name}</h4>
+              <h4 className="font-normal mt-1">{val.name}</h4>
               <span className="text-[#e94560] text-sm font-medium">
-                ${val.price}
+              ₹{val.price}
               </span>
             </div>
           );

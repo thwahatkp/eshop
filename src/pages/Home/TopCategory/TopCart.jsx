@@ -57,26 +57,19 @@ const TopCart = () => {
         },
       },
       {
-        breakpoint: 800,
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 698,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           initialSlide: 1,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
         },
       },
     ],
@@ -88,19 +81,18 @@ const TopCart = () => {
           return (
             <>
               <div
-                className="box product bg-white p-5 relative rounded-md shadow m-5"
+                className="box product bg-white p-5 relative rounded-md shadow m-5 flex flex-col items-center justify-center"
                 key={index}
               >
-                <div className="nametop d_flex relative w-full flex justify-between">
-                  <span className="tleft left-0 bg-[#0f3460] text-white text-[12px] py-1.5 px-2.5 rounded-[50px] m-1 absolute top-[10px] cursor-pointer">
+                {/* <div className="nametop d_flex relative w-full flex justify-between"></div> */}
+                <div className="img grow relative rounded-lg">
+                  <span className="tleft bg-[#0f3460] text-white text-[12px] py-1.5 px-2.5 rounded-[50px] m-1 absolute cursor-pointer top-2 ">
                     {value.para}
                   </span>
-                  <span className="tright right-3 lg:right-1 bg-[aliceblue] text-black text-[12px] py-1.5 px-2.5 rounded-[50px] m-1 absolute top-[10px] cursor-pointer">
+                  <span className="tright bg-[aliceblue] text-black text-[12px] py-1.5 px-2.5 rounded-[50px] m-1 absolute cursor-pointer right-0 top-2">
                     {value.desc}
                   </span>
-                </div>
-                <div className="img">
-                  <img src={value.cover} alt="" />
+                  <img className="rounded-md" src={value.cover} alt="" />
                 </div>
               </div>
             </>
