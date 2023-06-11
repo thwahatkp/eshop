@@ -6,6 +6,7 @@ export default {
       colors: {
         primary: "#F5385D",
         secondary: "#e94560",
+        background: "#f6f9fc",
         "primary-hover": "#f50057",
         // "linear-gradient(to right, rgb(251, 113, 133), rgb(217, 70, 239), rgb(99, 102, 241))",
       },

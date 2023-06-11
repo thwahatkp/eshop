@@ -71,7 +71,7 @@ const FlashCard = ({ productItems }) => {
     <Slider {...settings}>
       {productItems.map((productItems, idx) => {
         return (
-          <div key={idx} className="box grid">
+          <div key={idx} className="box grid ">
             <div className="product mtop bg-white p-5 relative rounder-[8px] shadow m-2.5">
               <div className="img">
                 <span className="discount absolute top-0 left-0 bg-[#e94560] py-[3px] px-2.5 text-[12px] rounded-[50px] text-white m-2.5">
