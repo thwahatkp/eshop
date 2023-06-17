@@ -1,3 +1,3 @@
-import { Users } from './users';
+export { default as SideBar } from './Sidebar';
+export { default as Users } from './Users';
 
-export { Users };
