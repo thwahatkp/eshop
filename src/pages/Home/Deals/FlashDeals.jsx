@@ -51,11 +51,16 @@ const FlashDeals = () => {
     <>
       <section className="flash bg-[#f6f9fc] py-[50px] px-0 mt-8 md:mt-0">
         <div className="container max-w-[90%] m-auto">
-          <div className="heading f_flex flex items-center">
-            <i className="fa fa-bolt text-[#e94560] m-2.5"></i>
-            <h1 className="text-xl md:text-[1.5em] font-semibold">Flash Deals</h1>
+          <div
+            data-aos="fade-right"
+            data-aos-duration="200"
+            data-aos-offset="120"
+            className="heading f_flex flex items-center"
+          >
+            <i className="fa fa-bolt text-secondary m-2.5"></i>
+            <h className="text-xl md:text-[1.5em] font-semibold">Flash Deals</h>
           </div>
-            <FlashCard productItems={productItems} /*addToCart={addToCart}*/ />
+          <FlashCard productItems={productItems} /*addToCart={addToCart}*/ />
         </div>
       </section>
     </>

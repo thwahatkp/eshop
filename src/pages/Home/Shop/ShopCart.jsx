@@ -81,7 +81,7 @@ const ShopCart = () => {
           >
             <div className="product mtop bg-white p-5 relative rounder-[8px] shadow m-2.5">
               <div className="img">
-                <span className="discount absolute top-0 left-0 bg-[#e94560] py-[3px] px-2.5 text-[12px] rounded-[50px] text-white m-2.5">
+                <span className="discount absolute top-0 left-0 bg-secondary py-[3px] px-2.5 text-[12px] rounded-[50px] text-white m-2.5">
                   {shopItems.discount}% Off
                 </span>
                 <img className="w-full h-full" src={shopItems.cover} alt="" />
@@ -105,12 +105,12 @@ const ShopCart = () => {
                   <i className="fa fa-star text-[15px] text-[#ffcd4e] my-[5px] mx-[5px] mb-0"></i>
                   <i className="fa fa-star text-[15px] text-[#ffcd4e] my-[5px] mx-[5px] mb-0"></i>
                 </div>
-                <div className="price flex justify-between text-[#e94560]">
+                <div className="price flex justify-between text-secondary">
                   <h4>₹{shopItems.price}.00 </h4>
                   {/* step : 3
                    if hami le button ma click garryo bahne
                   */}
-                  <button className="bg-none text-[#e94560] text-xl border border-[#03004717] w-9 h-9 rounded-md">
+                  <button className="bg-none text-secondary text-xl border border-[#03004717] w-9 h-9 rounded-md">
                     {/* <button onClick={() => addToCart(productItems)}> */}
                     <i className="fa fa-plus"></i>
                   </button>

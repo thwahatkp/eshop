@@ -1,0 +1,123 @@
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { post } from "../../helper/axiosHelper";
+import { getLoggedDetails } from "../../redux/reducers/user";
+
+function Login() {
+  // <<======= Actions =======>>
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // <<======= State =======>>
+  const [details, setDetails] = useState({});
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  // <<======= Functions =======>>
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  let handleChange = (e) => {
+    setError("");
+    let { name, type, value, checked } = e.target;
+    let newValue = type === "checkbox" ? checked : value;
+    setDetails({ ...details, [name]: newValue });
+  };
+
+  let handleSubmit = (e, data) => {
+    e.preventDefault();
+    post(`login`, data)
+      .then((res) => {
+        if (res.status === 200) {
+          localStorage.setItem("details", JSON.stringify(res.data));
+          data.rememberMe
+            ? localStorage.setItem("rememberMe", true)
+            : localStorage.removeItem("rememberMe");
+          dispatch(getLoggedDetails());
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        if (err.status === 401 || err.status === 404) {
+          setError(err.message);
+        }
+      });
+  };
+
+  return (
+    <div className="h-full max-w-md md:max-w-xl mx-auto bg-background rounded-lg shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] my-12 p-8 w-full">
+      <h1 className="text-center text-3xl font-semibold mb-2">Login</h1>
+      <div className="h-auto flex flex-col p-8">
+        <form onSubmit={(e) => handleSubmit(e, details)}>
+          <TextField
+            // error={true}
+            fullWidth
+            className=""
+            onChange={handleChange}
+            // id="outlined-error-helper-text"
+            label="Username"
+            name="username"
+            size="small"
+            sx={{ mb: 1 }}
+            //   defaultValue="Hello World"
+            // helperText={true && "no account exists"}
+          />
+          <TextField
+            label="Password"
+            size="small"
+            name="password"
+            onChange={handleChange}
+            sx={{mb:2}}
+            type={showPassword ? "text" : "password"}
+            // value={password}
+            // error={true}
+            fullWidth
+            margin="normal"
+            // helperText={true && "Incorrect password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleClickShowPassword} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          {error && (
+            <span className="text-center font-medium text-red-500 text-sm flex justify-center mb-2 -mt-2">
+              {error}
+            </span>
+          )}
+          {/* <div className="flex items-center mt-1 mb-2 ml-1">
+            <label
+              htmlFor="checked-checkbox"
+              className="text-sm cursor-pointer font-medium text-gray-900 dark:text-gray-300"
+            >
+              Remember me
+            </label>
+            <input
+              id="checked-checkbox"
+              type="checkbox"
+              value=""
+              className="w-4 h-4 ml-2  cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+          </div> */}
+          <button
+            type="submit"
+            className="w-full text-white  bg-gradient-to-br from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default Login;

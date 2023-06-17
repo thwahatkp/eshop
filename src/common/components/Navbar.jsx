@@ -12,7 +12,6 @@ const Navbar = () => {
     const homepage = location.pathname === "/" ? true : false;
     setIsHome(homepage);
   }, [location]);
-  console.log(location); // const state = useSelector(state=>state)
   const layout = useSelector((state) => state.layout);
   // Toogle Menu
   return (

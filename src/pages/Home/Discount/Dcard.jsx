@@ -112,6 +112,9 @@ const Dcard = () => {
           return (
             <>
               <div
+                data-aos="zoom-in-up"
+                data-aos-duration="200"
+                data-aos-offset="250"
                 className="box product bg-[#fff] p-5 relative rounded-[8px] shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5 hover:scale-105 transition ease-in-out duration-500 cursor-pointer"
                 // className="box product bg-[#fff] p-5 relative rounded-[8px] shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5 hover:scale-105 transition ease-in-out duration-500 cursor-pointer hover:shadow-[rgba(0,0,0,0.1)_0px_10px_15px_-3px,rgba(0,0,0,0.05)_0px_4px_6px_-2px]"
                 key={index}

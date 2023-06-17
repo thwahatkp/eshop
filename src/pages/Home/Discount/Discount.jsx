@@ -16,7 +16,7 @@ const Discount = () => {
               </h2>
             </div>
             <div className="heading-right row text-right text-gray-500 w-1/2 flex items-center justify-end gap-1 cursor-pointer">
-              <span className="text-[#e94560]">View all</span>
+              <span className="text-secondary">View all</span>
               <i className="fa-solid fa-caret-right"></i>
             </div>
           </div>

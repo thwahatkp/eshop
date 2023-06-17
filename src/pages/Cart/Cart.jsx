@@ -24,8 +24,6 @@ const Cart = () => {
     0
   );
 
-  console.log(totalPrice);
-
   // prodcut qty total
   return (
     <>
