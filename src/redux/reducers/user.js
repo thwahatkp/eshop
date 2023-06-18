@@ -39,9 +39,9 @@ let userDetails = createSlice({
       action.payload.logged = true;
       return (state = action.payload);
     },
-    [getLoggedDetails.pending]: (state, action) => {
-      state.logged = false;
-    },
+    // [getLoggedDetails.pending]: (state, action) => {
+    //   state.logged = false;
+    // },
     [getLoggedDetails.rejected]: (state, action) => {
       localStorage.removeItem("details");
       return (state = { logged: false });

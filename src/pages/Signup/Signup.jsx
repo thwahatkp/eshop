@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { get, post } from "../../helper/axiosHelper";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getLoggedDetails } from "../../redux/reducers/user";
 
 function Signup() {
@@ -167,6 +167,12 @@ function Signup() {
             Signup
           </button>
         </form>
+        <span className="text-center text-base">
+          Already a member?{" "}
+          <Link className="hover:text-blue-800 hover:underline" to="/login">
+            Sign in
+          </Link>
+        </span>
       </div>
     </div>
   );

@@ -104,15 +104,16 @@ const Search = () => {
                 <Typography textAlign="center">Dashboard</Typography>
               </MenuItem>
               <MenuItem key={"login"} onClick={handleCloseUserMenu}>
-                <NavLink to="/login">
+
                   {user.logged ? (
                     <Typography textAlign="center" onClick={handleLogout}>
                       Logout
                     </Typography>
                   ) : (
+                    <NavLink to="/login">
                     <Typography textAlign="center">Login</Typography>
-                  )}
                 </NavLink>
+                  )}
               </MenuItem>
             </Menu>
           </Box>

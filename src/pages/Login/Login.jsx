@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { post } from "../../helper/axiosHelper";
 import { getLoggedDetails } from "../../redux/reducers/user";
@@ -118,6 +118,12 @@ function Login() {
           >
             Login
           </button>
+          <span className="text-center text-base flex justify-center my-2">
+            Dont have an account?&nbsp;
+            <Link className="hover:text-blue-800 hover:underline" to="/signup">
+              Sign up
+            </Link>
+          </span>
           <span className="flex justify-center my-3 text-lg font-semibold">
             OR
           </span>
