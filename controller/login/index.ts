@@ -1,15 +1,27 @@
 import { Request } from "express";
 import { generateToken } from "../../auth/token";
 import { Users } from "../../model";
+import { isNull } from "../../helper/global";
 
 interface Search {
-  mobile?: number; username?: string
+  mobile?: number;
+  username?: string;
 }
 
 let loginUser = (req: Request) => {
   return new Promise(async (resolve, reject) => {
     try {
       let { username, password } = req.body;
+      if (isNull(username))
+        return reject({
+          status: 400,
+          message: "Please provide a username",
+        });
+      if (isNull(password))
+        return reject({
+          status: 400,
+          message: "Please provide a password",
+        });
       let search: Search = { username: username };
       if (!isNaN(username)) {
         username = parseInt(username);

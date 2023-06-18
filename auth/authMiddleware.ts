@@ -5,6 +5,9 @@ import { Request, Response, NextFunction } from "express";
 let auth = async (req: Request | any, res: Response, next: NextFunction) => {
   try {
     let token = req.cookies.token || req.session.token;
+    if (req.isAuthenticated()) {
+      return next();
+    }
     if (!!token) {
       let response = verifyToken(token);
       if (response === "TokenExpiredError") {
@@ -33,3 +36,13 @@ let auth = async (req: Request | any, res: Response, next: NextFunction) => {
 };
 
 export { auth };
+// function ensureAuthenticated(req: any, res: any, next: any) {
+//   if (req.isAuthenticated()) {
+//     return next();
+//   }
+//   // res.redirect("http://localhost:3000/login");
+//   res.status(401).json({
+//     success: false,
+//     message: "please login first",
+//   });
+// }

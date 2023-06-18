@@ -5,6 +5,7 @@ import { auth } from "../auth/authMiddleware";
 import { registerUser, githubRegister } from "../controller/register";
 import loginUser from "../controller/login";
 import ErrorHandler from "../utils/Error";
+import passport from "passport";
 
 declare module "express-session" {
   interface SessionData {
@@ -17,6 +18,7 @@ var router = Router();
 
 // router.get("/", async function (req: Request, res: Response) {
 router.get("/", auth, async function (req: any, res: Response) {
+  // console.log(req.session);
   res.status(200).json(req.user);
 });
 
@@ -35,10 +37,10 @@ router.post("/login", async (req: Request, res: Response) => {
   try {
     let response: any = await loginUser(req);
     // if (req.body.remember_me === "true") {
-      res.cookie("token", response.data.token, { maxAge: 48 * 60 * 60 * 1000 });
+    res.cookie("token", response.data.token, { maxAge: 48 * 60 * 60 * 1000 });
     // } else {
-      // res.clearCookie("token");
-      // req.session.token = response.data.token;
+    // res.clearCookie("token");
+    // req.session.token = response.data.token;
     // }
     delete response.data.token;
     res.status(response.status).json(response);
@@ -48,8 +50,13 @@ router.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/logout", async (req: Request, res: Response) => {
+router.post("/logout", async (req: any, res: Response) => {
   try {
+    if (req.user && req.isAuthenticated()) {
+      req.logout(function (err: Error) {
+        if (err) return console.log(err);
+      });
+    }
     res.clearCookie("token");
     res.status(200).json({ status: 200, message: "logged out successfully" });
   } catch (error) {
@@ -75,16 +82,21 @@ router.post("/session/destroy", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/register-github", async (req: Request, res: Response) => {
-  try {
-    // res.clearCookie("authUser");
-    let response = await githubRegister(req);
-    let data = JSON.stringify({ name: "thwaha", password: 123456 });
-    res.cookie("authUser", data, { maxAge: 24 * 60 * 60 * 1000 });
-    res.status(200).json(response);
-  } catch (error) {
-    res.status(400).json(error);
-  }
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+router.get("/auth/google/logout", (req: any, res: any) => {
+  req.logout();
+  res.redirect(process.env.CLIENT_URL + "login");
 });
+
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: `${process.env.CLIENT_URL}login`,
+    successRedirect: `${process.env.CLIENT_URL}`,
+  })
+);
 
 export default router;
