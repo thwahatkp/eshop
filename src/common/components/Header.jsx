@@ -5,7 +5,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useDispatch } from "react-redux";
 import { getLoggedDetails } from "../../redux/reducers/user";
-import { post } from "../../helper/axiosHelper";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -14,10 +13,10 @@ const Header = () => {
   useEffect(() => {
     dispatch(getLoggedDetails());
   }, [dispatch]);
-  
+
   useEffect(() => {
     AOS.init({
-            offset: 200,
+      offset: 200,
       duration: 600,
       easing: "ease-in-out",
       delay: 100,

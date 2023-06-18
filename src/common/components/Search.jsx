@@ -6,16 +6,36 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { post } from "../../helper/axiosHelper";
+import { logout } from "../../redux/reducers/user";
 
 // import { sidebar } from "../../redux/reducers/layout";
 const Search = () => {
+  // <<======= Actions =======>>
+  const dispatch = useDispatch();
+  // <<======= State =======>>
   const [anchorElUser, setAnchorElUser] = useState(null);
-
+  const user = useSelector((state) => state.user);
+  // <<======= Functions =======>>
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    post("logout")
+      .then((res) => {
+        if (res.status === 200) {
+          localStorage.removeItem("details");
+          dispatch(logout());
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -85,7 +105,13 @@ const Search = () => {
               </MenuItem>
               <MenuItem key={"login"} onClick={handleCloseUserMenu}>
                 <NavLink to="/login">
-                  <Typography textAlign="center">Login</Typography>
+                  {user.logged ? (
+                    <Typography textAlign="center" onClick={handleLogout}>
+                      Logout
+                    </Typography>
+                  ) : (
+                    <Typography textAlign="center">Login</Typography>
+                  )}
                 </NavLink>
               </MenuItem>
             </Menu>

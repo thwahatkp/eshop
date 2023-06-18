@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/";
 
-axios.defaults.withCredentials = true;
 let getLoggedDetails = createAsyncThunk(
   "login details",
-  (navigate) => axios.get(API_URL).then((res) => res.data)
-  // .then((res) => res.data || JSON.parse(localStorage.getItem("details")))
+  () =>
+    // (navigate) =>
+    axios
+      .get()
+      .then((res) => res.data || JSON.parse(localStorage.getItem("details")))
   // .catch((err) => {
   //   //   navigate("/login");
   //   // console.log(err);
@@ -22,10 +23,14 @@ let userDetails = createSlice({
     username: "",
     mobile: "",
     email: "",
-    // logged: JSON.parse(localStorage.getItem("details")) ? true : false,
+    logged: JSON.parse(localStorage.getItem("details")) ? true : false,
   },
   reducers: {
     logout: (state, action) => {
+      // <<======= Delete all another user value =======>>
+      Object.keys(state).forEach((key) => {
+        delete state[key];
+      });
       state.logged = false;
     },
   },
@@ -34,9 +39,9 @@ let userDetails = createSlice({
       action.payload.logged = true;
       return (state = action.payload);
     },
-    // [getLoggedDetails.pending]: (state, action) => {
-    //   state.logged = false;
-    // },
+    [getLoggedDetails.pending]: (state, action) => {
+      state.logged = false;
+    },
     [getLoggedDetails.rejected]: (state, action) => {
       localStorage.removeItem("details");
       return (state = { logged: false });

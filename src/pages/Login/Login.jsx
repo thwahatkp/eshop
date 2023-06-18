@@ -43,10 +43,14 @@ function Login() {
         }
       })
       .catch((err) => {
-        if (err.status === 401 || err.status === 404) {
+        if (err.status === 401 || err.status === 404 || err.status === 400) {
           setError(err.message);
         }
       });
+  };
+
+  const google = () => {
+    window.open(`${import.meta.env.VITE_API_URL}auth/google`, "_self");
   };
 
   return (
@@ -72,7 +76,7 @@ function Login() {
             size="small"
             name="password"
             onChange={handleChange}
-            sx={{mb:2}}
+            sx={{ mb: 2 }}
             type={showPassword ? "text" : "password"}
             // value={password}
             // error={true}
@@ -110,9 +114,40 @@ function Login() {
           </div> */}
           <button
             type="submit"
-            className="w-full text-white  bg-gradient-to-br from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            className="w-full text-white  bg-gradient-to-br from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
           >
             Login
+          </button>
+          <span className="flex justify-center my-3 text-lg font-semibold">
+            OR
+          </span>
+          {/* // <<======= Google =======>> */}
+          <button
+            type="button"
+            onClick={google}
+            className="w-full text-black  bg-white shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] hover:shadow-[rgba(0,0,0,0.25)_1.95px_1.95px_2.6px] border hover:border-gray-500 focus:ring-4 focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center justify-center"
+          >
+            <img
+              src="public/google.svg"
+              alt="google logo"
+              className="mr-2 -ml-1 w-6 h-6"
+            />
+            {/* <svg
+              className="mr-2 -ml-1 w-4 h-4 google-gradient"
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fab"
+              data-icon="google"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 488 512"
+            >
+              <path
+                fill="currentColor"
+                d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
+              ></path>
+            </svg> */}
+            Sign up with Google<div></div>
           </button>
         </form>
       </div>
