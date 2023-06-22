@@ -35,8 +35,9 @@ function Signup() {
 
     post(`register`, details)
       .then((res) => {
+        console.log(res)
         if (res.status === 201) {
-          localStorage.setItem("details", JSON.stringify(res.data.data));
+          localStorage.setItem("details", JSON.stringify(res.data));
           dispatch(getLoggedDetails());
           navigate("/");
         }
