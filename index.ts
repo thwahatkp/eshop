@@ -11,6 +11,7 @@ import indexRouter from "./routes/index";
 import errorMiddleware from "./middleware/errorHandler";
 import passport from "passport";
 import "./helper/passportAuth";
+import { v4 as uuidv4 } from "uuid";
 
 var app = express();
 
@@ -30,9 +31,15 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
+    genid: (req) => {
+      return uuidv4();
+    },
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000, // Set cookie expiration to 24 hours (in milliseconds)
+    },
   })
 );
 app.use(cookieParser());

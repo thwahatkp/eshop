@@ -18,6 +18,7 @@ var router = Router();
 
 // router.get("/", async function (req: Request, res: Response) {
 router.get("/", auth, async function (req: any, res: Response) {
+  console.log(req.user)
   // console.log(req.session);
   res.status(200).json(req.user);
 });
@@ -52,7 +53,7 @@ router.post("/login", async (req: Request, res: Response) => {
 
 router.post("/logout", async (req: any, res: Response) => {
   try {
-    if (req.user && req.isAuthenticated()) {
+    if (req.user && req.isAuthenticated()) { 
       req.logout(function (err: Error) {
         if (err) return console.log(err);
       });
@@ -64,23 +65,23 @@ router.post("/logout", async (req: any, res: Response) => {
   }
 });
 
-router.post("/session/destroy", async (req: Request, res: Response) => {
-  try {
-    req.session.destroy((err) => {
-      if (err) {
-        console.error("Error clearing session:", err);
-        res
-          .status(500)
-          .json({ success: false, error: "Failed to clear session" });
-      } else {
-        res.sendStatus(200);
-        // res.json({ success: true });
-      }
-    });
-  } catch (error) {
-    res.status(error.status).json(error);
-  }
-});
+// router.post("/session/destroy", async (req: Request, res: Response) => {
+//   try {
+//     req.session.destroy((err) => {
+//       if (err) {
+//         console.error("Error clearing session:", err);
+//         res
+//           .status(500)
+//           .json({ success: false, error: "Failed to clear session" });
+//       } else {
+//         res.sendStatus(200);
+//         // res.json({ success: true });
+//       }
+//     });
+//   } catch (error) {
+//     res.status(error.status).json(error);
+//   }
+// });
 
 router.get(
   "/auth/google",
