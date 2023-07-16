@@ -18,7 +18,7 @@ var router = Router();
 
 // router.get("/", async function (req: Request, res: Response) {
 router.get("/", auth, async function (req: any, res: Response) {
-  console.log(req.user)
+  console.log(req.user);
   // console.log(req.session);
   res.status(200).json(req.user);
 });
@@ -53,12 +53,12 @@ router.post("/login", async (req: Request, res: Response) => {
 
 router.post("/logout", async (req: any, res: Response) => {
   try {
-    if (req.user && req.isAuthenticated()) { 
+    res.clearCookie("token");
+    if (req.user && req.isAuthenticated()) {
       req.logout(function (err: Error) {
         if (err) return console.log(err);
       });
     }
-    res.clearCookie("token");
     res.status(200).json({ status: 200, message: "logged out successfully" });
   } catch (error) {
     res.status(error.status).json(error);
@@ -83,10 +83,7 @@ router.post("/logout", async (req: any, res: Response) => {
 //   }
 // });
 
-router.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
+router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 router.get("/auth/google/logout", (req: any, res: any) => {
   req.logout();
   res.redirect(process.env.CLIENT_URL + "login");
@@ -95,7 +92,7 @@ router.get("/auth/google/logout", (req: any, res: any) => {
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: `${process.env.CLIENT_URL}login`,
+    failureRedirect: `${process.env.CLIENT_URL}logint`,
     successRedirect: `${process.env.CLIENT_URL}`,
   })
 );

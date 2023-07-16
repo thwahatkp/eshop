@@ -7,13 +7,16 @@ import cors from "cors";
 import "dotenv/config";
 import "./database/connection";
 import session from "express-session";
-import indexRouter from "./routes/index";
 import errorMiddleware from "./middleware/errorHandler";
 import passport from "passport";
 import "./helper/passportAuth";
 import { v4 as uuidv4 } from "uuid";
 
 var app = express();
+
+// <<======= Routers=======>>
+import indexRouter from "./routes/index";
+import menu from './routes/menus'
 
 // view engine setup
 app.set("views", join(__dirname, "views"));
@@ -47,9 +50,10 @@ app.use(express.static(join(__dirname, "public")));
 
 app.use(express.json());
 app.use(passport.initialize());
-app.use(passport.session());
 
+app.use(passport.session());
 app.use("/", indexRouter);
+app.use("/menu", menu);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

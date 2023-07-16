@@ -1,7 +1,9 @@
-import express from 'express';
+import express from "express";
 import { generateToken } from "../../auth/token";
 import { Users } from "../../model";
-// import passport from "passport-github2";
+import { StatusCode } from "../../helper/types";
+
+const { BAD_REQUEST, CREATED, CONFLICT } = StatusCode;
 
 export function registerUser(req: express.Request) {
   return new Promise(async (resolve, reject) => {
@@ -12,21 +14,21 @@ export function registerUser(req: express.Request) {
       let usernameExist = await Users.findOne({ username: username });
       if (usernameExist) {
         return reject({
-          status: 302,
+          status: CONFLICT,
           exists: "username",
           message: "Username already exists",
         });
       }
       if (mobileExist) {
         return reject({
-          status: 302,
+          status: CONFLICT,
           exists: "mobile",
           message: "Mobile number already exists",
         });
       }
       if (emailExist) {
         return reject({
-          status: 302,
+          status: CONFLICT,
           exists: "email",
           message: "Email address already exists",
         });
@@ -46,12 +48,12 @@ export function registerUser(req: express.Request) {
       delete response.password;
       let token = generateToken({ _id: response._id });
       resolve({
-        status: 201,
+        status: CREATED,
         data: response,
         token: token,
       });
     } catch (error) {
-      reject({ status: 400, message: error.message });
+      reject({ status: BAD_REQUEST, message: error.message });
     }
   });
 }
@@ -61,7 +63,7 @@ export function githubRegister(req: express.Request) {
     try {
       resolve("called");
     } catch (error) {
-      reject({ status: 400, message: error.message });
+      reject({ status: BAD_REQUEST, message: error.message });
     }
   });
 }

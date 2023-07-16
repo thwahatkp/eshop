@@ -34,14 +34,14 @@ passport.use(
           upsert: true,
         }
       );
-      //   const user = {
-      //     id: profile.id,
-      //     fullName: profile.displayName,
-      //     name: profile.name,
-      //     email: profile.emails[0].value,
-      //     photos: profile.photos[0].value,
-      //     provider: profile.provider,
-      //   };
+        const user = {
+          id: profile.id,
+          fullName: profile.displayName,
+          name: profile.name,
+          email: profile.emails[0].value,
+          photos: profile.photos[0].value,
+          provider: profile.provider,
+        };
       done(null, googleUser);
     }
   )
@@ -56,5 +56,6 @@ passport.deserializeUser(async (user: any, done: any) => {
   let details = await models.Users.findById(user).select(
     "-googleId -__v -createdAt -updatedAt"
   );
+
   done(null, details);
 });
