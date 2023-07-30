@@ -1,3 +1,5 @@
+import { Skeleton } from "@mui/material";
+
 const Card = () => {
   const Ndata = [
     {
@@ -34,12 +36,29 @@ const Card = () => {
   return (
     <>
       <div className="content  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-[30px] product bg-[#fff] p-5 relative rounded-lg shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5">
+      <div
+      // data-aos="zoom-in-up"
+      // data-aos-duration="200"
+      // data-aos-offset="250"
+      className="box cursor-pointer"
+    >
+      <div className="img">
+        <Skeleton
+          variant="rounded"
+          width="100%"
+          height={165}
+          // style={{ marginBottom: "10px" }}
+        />
+      </div>
+      <Skeleton variant="text" width="80%" />
+      <Skeleton variant="text" width="60%" />
+    </div>
         {Ndata.map((val, index) => {
           return (
             <div
-              data-aos="zoom-in-up"
-              data-aos-duration="200"
-              data-aos-offset="250"
+              // data-aos="zoom-in-up"
+              // data-aos-duration="200"
+              // data-aos-offset="250"
               className="box cursor-pointer"
               key={index}
             >

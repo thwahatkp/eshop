@@ -52,9 +52,9 @@ const FlashDeals = () => {
       <section className="flash bg-[#f6f9fc] py-[50px] px-0 mt-8 md:mt-0">
         <div className="container max-w-[90%] m-auto">
           <div
-            data-aos="fade-right"
-            data-aos-duration="200"
-            data-aos-offset="120"
+            // data-aos="fade-right"
+            // data-aos-duration="200"
+            // data-aos-offset="120"
             className="heading f_flex flex items-center"
           >
             <i className="fa fa-bolt text-secondary m-2.5"></i>

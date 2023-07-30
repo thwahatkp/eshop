@@ -1,3 +1,4 @@
+import { Skeleton } from "@mui/material";
 import { useState } from "react";
 
 const ShopCart = () => {
@@ -73,6 +74,26 @@ const ShopCart = () => {
 
   return (
     <>
+    <div className="box grid">
+      <div className="product mtop bg-white p-5 relative rounded-[8px] shadow m-2.5">
+        <div className="img">
+          <Skeleton
+            variant="rounded"
+            width={"auto"}
+            height={207}
+            style={{ marginBottom: "10px" }}
+          />
+        </div>
+        <div className="product-details font-normal text-[17px]">
+          <Skeleton variant="text" width={150} style={{ marginBottom: "10px" }} />
+          <Skeleton animation="wave" variant="text" width={100} style={{ marginBottom: "5px" }} />
+          <div className="price flex justify-between text-secondary"> 
+            <Skeleton animation="wave" variant="text" width={80} />
+            <Skeleton animation="wave" variant="rounded" width={40} height={40} />
+          </div>
+        </div>
+      </div>
+    </div>
       {shopItems.map((shopItems, index) => {
         return (
           <div

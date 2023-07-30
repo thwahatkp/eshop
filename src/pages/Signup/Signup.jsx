@@ -4,8 +4,7 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
-import { useEffect } from "react";
-import { get, post } from "../../helper/axiosHelper";
+import {  post } from "../../helper/axiosHelper";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getLoggedDetails } from "../../redux/reducers/user";
@@ -35,7 +34,7 @@ function Signup() {
 
     post(`register`, details)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         if (res.status === 201) {
           localStorage.setItem("details", JSON.stringify(res.data));
           dispatch(getLoggedDetails());
@@ -43,24 +42,18 @@ function Signup() {
         }
       })
       .catch((err) => {
-        if (err.status === 302) {
-          setError(err);
+        if (err.code === 409) {
+          setError({ exists: err.data.exists, message: err.message });
         }
       });
   };
   return (
     <div className="h-full max-w-xl md:max-w-5xl mx-auto bg-background rounded-3xl shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] my-12 p-8 w-full flex flex-col md:flex-row">
       <div className="w-full md:w-2/5 bg-purple-200 relative">
-        <img
-          src="/signup1.jpg"
-          alt=""
-          className="md:absolute inset-0 w-full h-full object-cover object-center"
-        />
+        <img src="/signup1.jpg" alt="" className="md:absolute inset-0 w-full h-full object-cover object-center" />
       </div>
       <div className="h-auto flex flex-col p-8 w-full md:w-3/5 my-auto ">
-        <h1 className="ml-3 text-center md:text-left text-3xl font-semibold mb-4">
-          Signup
-        </h1>
+        <h1 className="ml-3 text-center md:text-left text-3xl font-semibold mb-4">Signup</h1>
         <form onSubmit={handleSubmit}>
           <div className="flex gap-2 flex-col md:flex-row">
             <TextField
@@ -163,8 +156,7 @@ function Signup() {
           </div>
           <button
             type="submit"
-            className="w-full text-white  bg-gradient-to-br from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
+            className="w-full text-white  bg-gradient-to-br from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             Signup
           </button>
         </form>

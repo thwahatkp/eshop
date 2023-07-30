@@ -5,9 +5,7 @@ let getLoggedDetails = createAsyncThunk(
   "login details",
   () =>
     // (navigate) =>
-    axios
-      .get()
-      .then((res) => res.data || JSON.parse(localStorage.getItem("details")))
+    axios.get().then((res) => res.data || JSON.parse(localStorage.getItem("details")))
   // .catch((err) => {
   //   //   navigate("/login");
   //   // console.log(err);
@@ -30,6 +28,7 @@ let userDetails = createSlice({
       // <<======= Delete all another user value =======>>
       Object.keys(state).forEach((key) => {
         delete state[key];
+        // state[key] = ""
       });
       state.logged = false;
     },

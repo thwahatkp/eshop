@@ -3,7 +3,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useState } from "react";
+import {useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { post } from "../../helper/axiosHelper";
@@ -28,6 +28,7 @@ function Login() {
     let newValue = type === "checkbox" ? checked : value;
     setDetails({ ...details, [name]: newValue });
   };
+
 
   let handleSubmit = (e, data) => {
     e.preventDefault();

@@ -29,8 +29,8 @@ const Search = () => {
     post("logout")
       .then((res) => {
         if (res.status === 200) {
-          localStorage.removeItem("details");
           dispatch(logout());
+          localStorage.removeItem("details");
         }
       })
       .catch((err) => {

@@ -1,6 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Skeleton } from "@mui/material";
 
 const TopCart = () => {
   const Tdata = [
@@ -77,6 +78,32 @@ const TopCart = () => {
   return (
     <div className="overflow-hidden">
       <Slider {...settings}>
+      <div
+      className="box product bg-white p-5 relative rounded-md shadow m-5 flex flex-col items-center justify-center transition ease-in-out duration-500 hover:scale-105 cursor-pointer"
+    >
+            <div className="nametop d_flex relative w-full flex justify-between">
+        <Skeleton
+          variant="text"
+          width="40%"
+          height={20}
+          style={{ marginBottom: "5px" }}
+        />
+        <Skeleton
+          variant="text"
+          width="40%"
+          height={20}
+          style={{ marginBottom: "5px" }}
+        />
+      </div>
+      <div className="img grow relative rounded-lg">
+        <Skeleton
+          variant="rectangular"
+          width="100%"
+          height={81}
+          style={{ marginBottom: "10px", borderRadius: "8px" }}
+        />
+      </div>
+    </div>
         {Tdata.map((value, index) => {
           return (
             <div

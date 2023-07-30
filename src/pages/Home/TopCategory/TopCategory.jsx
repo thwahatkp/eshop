@@ -7,9 +7,9 @@ const TopCategory = () => {
         <div className="container max-w-[90%] m-auto">
           <div className="heading d_flex flex justify-between">
             <div
-              data-aos="fade-right"
-              data-aos-duration="200"
-              data-aos-offset="120"
+              // data-aos="fade-right"
+              // data-aos-duration="200"
+              // data-aos-offset="120"
               className="heading-left row  f_flex w-1/2 flex items-center"
             >
               <i className="fa-solid fa-border-all text-[30px] text-secondary m-2.5 font-black"></i>

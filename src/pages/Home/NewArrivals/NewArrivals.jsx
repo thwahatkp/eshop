@@ -8,9 +8,9 @@ const NewArrivals = () => {
         <div className="container max-w-[90%] m-auto">
           <div className="heading d_flex flex justify-between">
             <div
-              data-aos="fade-right"
-              data-aos-duration="200"
-              data-aos-offset="300"
+              // data-aos="fade-right"
+              // data-aos-duration="200"
+              // data-aos-offset="300"
               className="heading-left row  f_flex w-1/2 flex items-center"
             >
               <img
