@@ -1,11 +1,11 @@
-import express, { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 // import model from "../model";
 import { auth } from "../auth/authMiddleware";
 import { registerUser, githubRegister } from "../controller/register";
 import loginUser from "../controller/login";
-import ErrorHandler from "../utils/Error";
 import passport from "passport";
+import AppError from "../utils/AppError";
 
 declare module "express-session" {
   interface SessionData {
@@ -19,39 +19,14 @@ var router = Router();
 // router.get("/", async function (req: Request, res: Response) {
 router.get("/", auth, async function (req: any, res: Response) {
   console.log(req.user);
-  // console.log(req.session);
   res.status(200).json(req.user);
 });
 
-router.post("/register", async (req: Request, res: Response) => {
-  try {
-    let response: any = await registerUser(req);
-    res.cookie("token", response.token, { maxAge: 24 * 60 * 60 * 1000 });
-    delete response.token;
-    res.status(response.status).json(response);
-  } catch (error) {
-    res.status(error.status).json(error);
-  }
-});
+router.post("/register", registerUser);
 
-router.post("/login", async (req: Request, res: Response) => {
-  try {
-    let response: any = await loginUser(req);
-    // if (req.body.remember_me === "true") {
-    res.cookie("token", response.data.token, { maxAge: 48 * 60 * 60 * 1000 });
-    // } else {
-    // res.clearCookie("token");
-    // req.session.token = response.data.token;
-    // }
-    delete response.data.token;
-    res.status(response.status).json(response);
-  } catch (error) {
-    // next(error)
-    res.status(error.status).json(error);
-  }
-});
+router.post("/login", loginUser);
 
-router.post("/logout", async (req: any, res: Response) => {
+router.post("/logout", async (req: any, res: Response, next: NextFunction) => {
   try {
     res.clearCookie("token");
     if (req.user && req.isAuthenticated()) {
@@ -61,7 +36,7 @@ router.post("/logout", async (req: any, res: Response) => {
     }
     res.status(200).json({ status: 200, message: "logged out successfully" });
   } catch (error) {
-    res.status(error.status).json(error);
+    return next(new AppError(400, error.message));
   }
 });
 
@@ -84,6 +59,7 @@ router.post("/logout", async (req: any, res: Response) => {
 // });
 
 router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+
 router.get("/auth/google/logout", (req: any, res: any) => {
   req.logout();
   res.redirect(process.env.CLIENT_URL + "login");
