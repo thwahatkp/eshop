@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon",
+    "dev":"node ./dist/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -24,7 +25,8 @@
     "nodemon": "^2.0.22",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "winston": "^3.10.0"
   },
   "keywords": [],
   "author": "",

@@ -1,5 +1,4 @@
-
-export type ApiResponse = { status: number; data?: object; message?: string };
+export type ApiResponse = { message: string | null; data: object | null; statusCode: number };
 
 export enum MongoID {
   "64b3a6edac403b27eed20d5c" = "MENU",
@@ -17,5 +16,3 @@ export enum StatusCode {
   CONFLICT = 409,
   INTERNAL_SERVER_ERROR = 500,
 }
-
-

@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 
 export function isNull(field: any): boolean {
-  return field === null || field === undefined || field === "" || typeof field === "undefined";
+  return field === null || field === undefined || field === "" ||  field === "undefined";
 }
 
 export const multerUpload = (folder = "") => multer({ storage: storage(folder) });

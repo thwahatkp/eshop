@@ -2,7 +2,7 @@
 import express from "express";
 import { join } from "path";
 import cookieParser from "cookie-parser";
-import logger from "morgan";
+import loggers from "morgan";
 import cors from "cors";
 import "dotenv/config";
 import "./database/connection";
@@ -16,7 +16,8 @@ var app = express();
 
 // <<======= Routers=======>>
 import indexRouter from "./routes/index";
-import menu from './routes/menus'
+import menu from "./routes/menus";
+import logger from "./logger";
 
 // view engine setup
 app.set("views", join(__dirname, "views"));
@@ -30,7 +31,7 @@ app.use(
   })
 );
 
-app.use(logger("dev"));
+app.use(loggers("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
@@ -64,9 +65,8 @@ app.use(errorMiddleware);
 
 let PORT = 3001;
 app.listen(PORT, () => {
-  console.log(
-    `\x1b[38;5;${155}mserver started at port \x1b[38;5;${33}m${PORT}\x1b[0m\x1b[0m`
-  );
+  // console.log(`\x1b[38;5;${155}mserver started at port \x1b[38;5;${33}m${PORT}\x1b[0m\x1b[0m`);
+  logger.info(`server started at port ${PORT}`);
 });
 
 export default app;

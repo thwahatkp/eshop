@@ -4,6 +4,7 @@ import { Users } from "../../model";
 import { StatusCode } from "../../helper/types";
 import tryCatch from "../../middleware/tryCatch";
 import AppError from "../../utils/AppError";
+import AppResponse from "../../utils/AppResponse";
 
 const { BAD_REQUEST, CREATED, CONFLICT } = StatusCode;
 
@@ -14,15 +15,15 @@ export const registerUser = tryCatch(async (req: Request, res: Response, next: N
   let usernameExist = await Users.findOne({ username: username });
 
   if (usernameExist) {
-    return next(new AppError(CONFLICT, "Username already exists", { exists: "username" }));
+    throw new AppError(CONFLICT, "Username already exists", { exists: "username" });
   }
 
   if (mobileExist) {
-    return next(new AppError(CONFLICT, "Mobile number already exists", { exists: "mobile" }));
+    throw new AppError(CONFLICT, "Mobile number already exists", { exists: "mobile" });
   }
 
   if (emailExist) {
-    return next(new AppError(CONFLICT, "Email address already exists", { exists: "email" }));
+    throw new AppError(CONFLICT, "Email address already exists", { exists: "email" });
   }
 
   let response = new Users({
@@ -39,7 +40,7 @@ export const registerUser = tryCatch(async (req: Request, res: Response, next: N
   delete response.password;
   let token = generateToken({ _id: response._id });
   res.cookie("token", token, { maxAge: 24 * 60 * 60 * 1000 });
-  res.status(CREATED).json({ status: CREATED, data: response });
+  return new AppResponse("sucesss", response, CREATED);
 });
 
 export function githubRegister(req: express.Request) {

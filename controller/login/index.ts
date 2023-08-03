@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { generateToken } from "../../auth/token";
 import { LoginAttempt, Users } from "../../model";
 import { isNull } from "../../helper/global";
@@ -6,6 +6,7 @@ import moment from "moment";
 import { StatusCode } from "../../helper/types";
 import tryCatch from "../../middleware/tryCatch";
 import AppError from "../../utils/AppError";
+import AppResponse from "../../utils/AppResponse";
 
 const { OK, BAD_REQUEST, FORBIDDEN, UNAUTHORIZED, NOT_FOUND } = StatusCode;
 
@@ -14,10 +15,10 @@ interface Search {
   username?: string;
 }
 
-let loginUser = tryCatch(async (req: Request, res: Response, next: NextFunction) => {
+let loginUser = tryCatch(async (req: Request, res: Response) => {
   let { username, password } = req.body;
-  if (isNull(username)) return next(new AppError(BAD_REQUEST, "Please provide a username"));
-  if (isNull(password)) return next(new AppError(BAD_REQUEST, "Please provide a password"));
+  if (isNull(username)) throw new AppError(BAD_REQUEST, "Please provide a username");
+  if (isNull(password)) throw new AppError(BAD_REQUEST, "Please provide a password");
   let search: Search = { username: username };
   // <<======= checking username is mobile no =======>>
   if (!isNaN(username)) {
@@ -37,7 +38,7 @@ let loginUser = tryCatch(async (req: Request, res: Response, next: NextFunction)
         // const remainingTime = moment(blockedUser.blockedUntil).diff(moment(), 'seconds');
         // const formattedTime = moment.utc(remainingTime * 1000).format('LT') // Format as mm:ss
         // const formattedTime = moment.utc(remainingTime * 1000); // Format as mm:ss
-        return next(new AppError(FORBIDDEN, `Your account is blocked. Please try again after ${remainingTime}.`));
+        throw new AppError(FORBIDDEN, `Your account is blocked. Please try again after ${remainingTime}.`);
       }
     } else {
       await new LoginAttempt({ ip: req.ip, username: username }).save();
@@ -51,9 +52,12 @@ let loginUser = tryCatch(async (req: Request, res: Response, next: NextFunction)
         await blockedUser.save();
       }
       user = user.toObject();
+      delete user.password;
+      delete user.date;
+      delete user.time;
       let token: string = generateToken({ _id: user._id });
       res.cookie("token", token, { maxAge: 48 * 60 * 60 * 1000 });
-      res.status(OK).json({ status: OK, data: user });
+      return new AppResponse("success", user, OK);
     } else {
       // <<======= checking user allready exist =======>>
       if (blockedUser) {
@@ -78,10 +82,10 @@ let loginUser = tryCatch(async (req: Request, res: Response, next: NextFunction)
           username: username,
         }).save();
       }
-      return next(new AppError(UNAUTHORIZED, "Password is incorrect"));
+      throw new AppError(UNAUTHORIZED, "Password is incorrect");
     }
   } else {
-    return next(new AppError(NOT_FOUND, "No account exits"));
+    throw new AppError(NOT_FOUND, "No account exits");
   }
 });
 

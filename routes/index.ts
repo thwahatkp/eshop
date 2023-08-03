@@ -17,7 +17,7 @@ declare module "express-session" {
 var router = Router();
 
 // router.get("/", async function (req: Request, res: Response) {
-router.get("/", auth, async function (req: any, res: Response) {
+router.get("/", auth, async function (req: Request, res: Response) {
   console.log(req.user);
   res.status(200).json(req.user);
 });
@@ -26,7 +26,7 @@ router.post("/register", registerUser);
 
 router.post("/login", loginUser);
 
-router.post("/logout", async (req: any, res: Response, next: NextFunction) => {
+router.post("/logout", async (req: Request, res: Response, next: NextFunction) => {
   try {
     res.clearCookie("token");
     if (req.user && req.isAuthenticated()) {

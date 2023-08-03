@@ -46,10 +46,7 @@ userSchema.methods.generatePasswordHash = function (password: string): string {
   return hash;
 };
 
-userSchema.methods.validatePassword = function (
-  password: string,
-  hashedPassword: string
-): boolean {
+userSchema.methods.validatePassword = function (password: string, hashedPassword: string): boolean {
   return compareSync(password, hashedPassword);
 };
 
