@@ -5,8 +5,7 @@ import DailyRotateFile from "winston-daily-rotate-file";
 import fs from "fs";
 import { resolve } from "path";
 
-// let dir = process.env.LOG_DIR;
-let dir = "logs";
+let dir = process.env.LOG_DIR;
 if (!dir) dir = resolve("logs");
 
 // create directory if it is not present

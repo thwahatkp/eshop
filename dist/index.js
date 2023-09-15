@@ -35,8 +35,7 @@ app.use((0, express_session_1.default)({
     genid: function (req) {
         return (0, uuid_1.v4)();
     },
-    // secret: process.env.SESSION_SECRET,
-    secret: "sessionsecreteshop",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {

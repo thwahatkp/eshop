@@ -8,8 +8,7 @@ var moment_1 = __importDefault(require("moment"));
 var winston_daily_rotate_file_1 = __importDefault(require("winston-daily-rotate-file"));
 var fs_1 = __importDefault(require("fs"));
 var path_1 = require("path");
-// let dir = process.env.LOG_DIR;
-var dir = "logs";
+var dir = process.env.LOG_DIR;
 if (!dir)
     dir = (0, path_1.resolve)("logs");
 // create directory if it is not present

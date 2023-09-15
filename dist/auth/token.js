@@ -7,8 +7,7 @@ var generateToken = function (data) {
         if (Object.keys(data).length === 0)
             return "object is null";
         // let token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 60 });
-        // let token = sign(data, process.env.JWT_SECRET, { expiresIn: "2 days" });
-        var token = (0, jsonwebtoken_1.sign)(data, "jwtsecreteshop", { expiresIn: "2 days" });
+        var token = (0, jsonwebtoken_1.sign)(data, process.env.JWT_SECRET, { expiresIn: "2 days" });
         return token;
     }
     else {

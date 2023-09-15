@@ -67,10 +67,8 @@ var models = __importStar(require("../model/index"));
 var moment_1 = __importDefault(require("moment"));
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 passport_1.default.use(new GoogleStrategy({
-    // clientID: process.env.GOOGLE_CLIENT_ID,
-    clientID: "195559553752-58dnk1d5bd42iincarqvhjfl0qp5103n.apps.googleusercontent.com",
-    // clientSecret: process.env.GOOGLE_CLIENT_ID_SECRET,
-    clientSecret: "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",
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_ID_SECRET,
     callbackURL: "/auth/google/callback",
 }, function (accessToken, refreshToken, profile, done) { return __awaiter(void 0, void 0, void 0, function () {
     var googleUser, user;
