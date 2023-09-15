@@ -5,16 +5,13 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_ID_SECRET,
+      // clientID: process.env.GOOGLE_CLIENT_ID,
+      clientID: "195559553752-58dnk1d5bd42iincarqvhjfl0qp5103n.apps.googleusercontent.com",
+      // clientSecret: process.env.GOOGLE_CLIENT_ID_SECRET,
+      clientSecret: "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",
       callbackURL: "/auth/google/callback",
     },
-    async (
-      accessToken: any,
-      refreshToken: any,
-      profile: any,
-      done: Function
-    ) => {
+    async (accessToken: any, refreshToken: any, profile: any, done: Function) => {
       let googleUser = await models.Users.findOneAndUpdate(
         { googleId: profile.id },
         {
@@ -34,14 +31,14 @@ passport.use(
           upsert: true,
         }
       );
-        const user = {
-          id: profile.id,
-          fullName: profile.displayName,
-          name: profile.name,
-          email: profile.emails[0].value,
-          photos: profile.photos[0].value,
-          provider: profile.provider,
-        };
+      const user = {
+        id: profile.id,
+        fullName: profile.displayName,
+        name: profile.name,
+        email: profile.emails[0].value,
+        photos: profile.photos[0].value,
+        provider: profile.provider,
+      };
       done(null, googleUser);
     }
   )
@@ -53,9 +50,7 @@ passport.serializeUser((user: any, done: any) => {
 
 passport.deserializeUser(async (user: any, done: any) => {
   //   done(null, user);
-  let details = await models.Users.findById(user).select(
-    "-googleId -__v -createdAt -updatedAt"
-  );
+  let details = await models.Users.findById(user).select("-googleId -__v -createdAt -updatedAt");
 
   done(null, details);
 });

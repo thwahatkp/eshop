@@ -38,7 +38,8 @@ app.use(
     genid: (req) => {
       return uuidv4();
     },
-    secret: process.env.SESSION_SECRET,
+    // secret: process.env.SESSION_SECRET,
+    secret: "sessionsecreteshop",
     resave: false,
     saveUninitialized: false,
     cookie: {

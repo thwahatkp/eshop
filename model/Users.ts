@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema, StringExpressionOperatorReturningArray } from "mongoose";
 import { genSaltSync, hashSync, compareSync } from "bcryptjs";
 import moment from "moment";
 
@@ -7,7 +7,7 @@ interface User extends Document {
   fname?: string;
   lname?: string;
   username?: string;
-  mobile?: number;
+  mobile?: string;
   email?: string;
   password?: string;
   date?: string;
@@ -25,7 +25,7 @@ const userSchema = new Schema<User>(
     fname: { type: String, required: true },
     lname: String,
     username: { type: String },
-    mobile: Number,
+    mobile: String,
     email: { type: String, required: true },
     password: String,
     date: { type: String, default: () => moment().format("YYYY-MM-DD") },

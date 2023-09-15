@@ -1,5 +1,19 @@
 import { format, createLogger, transports } from "winston";
 import moment from "moment";
+import DailyRotateFile from "winston-daily-rotate-file";
+
+import fs from "fs";
+import { resolve } from "path";
+
+// let dir = process.env.LOG_DIR;
+let dir = "logs";
+if (!dir) dir = resolve("logs");
+
+// create directory if it is not present
+if (!fs.existsSync(dir)) {
+  // Create the directory if it does not exist
+  fs.mkdirSync(dir);
+}
 
 // Formatter with colorization for console output
 const consoleFormat = format.combine(
@@ -10,7 +24,11 @@ const consoleFormat = format.combine(
   })
 );
 
-// Formatter without colorization for file output
+// Create a function to determine the log file based on log level
+const logFile = (level: string) => {
+  return `logs/${level}.log`;
+};
+
 const fileFormat = format.combine(
   format.timestamp(),
   format.printf(({ timestamp, level, message }) => {
@@ -18,7 +36,6 @@ const fileFormat = format.combine(
   })
 );
 
-// Create logger instance
 const logger = createLogger({
   level: "debug",
   format: format.combine(
@@ -29,10 +46,19 @@ const logger = createLogger({
   ),
   transports: [
     new transports.Console({ format: consoleFormat }),
-    new transports.File({
+    new DailyRotateFile({
       level: "info",
-      filename: "logs/app.log",
+      filename: logFile("app.%DATE%"),
       format: fileFormat,
+      datePattern: "YYYY-MM-DD",
+      maxFiles: "10d",
+    }),
+    new DailyRotateFile({
+      level: "error",
+      filename: logFile("error.%DATE%"),
+      format: fileFormat,
+      datePattern: "YYYY-MM-DD",
+      maxFiles: "10d",
     }),
   ],
 });
