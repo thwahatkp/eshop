@@ -7,6 +7,7 @@ import { StatusCode } from "../../helper/types";
 import tryCatch from "../../middleware/tryCatch";
 import AppError from "../../utils/AppError";
 import AppResponse from "../../utils/AppResponse";
+import cookie from "cookie";
 
 const { OK, BAD_REQUEST, FORBIDDEN, UNAUTHORIZED, NOT_FOUND } = StatusCode;
 
@@ -57,6 +58,13 @@ let loginUser = tryCatch(async (req: Request, res: Response) => {
       delete user.time;
       let token: string = generateToken({ _id: user._id });
       res.cookie("token", token, { maxAge: 48 * 60 * 60 * 1000 });
+      const sameSiteNoneCookie = cookie.serialize("token", token, {
+        sameSite: "none",
+        secure: true, // Set this to true if using HTTPS
+      });
+
+      // Set the cookie in the response header
+      res.setHeader("Set-Cookie", sameSiteNoneCookie);
       return new AppResponse("success", user, OK);
     } else {
       // <<======= checking user allready exist =======>>
