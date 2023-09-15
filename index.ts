@@ -24,9 +24,9 @@ app.set("views", join(__dirname, "views"));
 
 app.use(
   cors({
-    // origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://thwahatkp.github.io/eshop", "https://thwahatkp.github.io"],
     // methods: "GET,PUT,POST,DELETE",
-    origin: true,
+    // origin: true,
     credentials: true,
   })
 );
