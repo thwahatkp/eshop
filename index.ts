@@ -25,8 +25,8 @@ app.set("views", join(__dirname, "views"));
 app.use(
   cors({
     // origin: ["http://localhost:3000"],
-    origin: true,
     // methods: "GET,PUT,POST,DELETE",
+    origin: true,
     credentials: true,
   })
 );
