@@ -4,23 +4,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // import createError from "http-errors";
-var express_1 = __importDefault(require("express"));
-var path_1 = require("path");
-var cookie_parser_1 = __importDefault(require("cookie-parser"));
-var morgan_1 = __importDefault(require("morgan"));
-var cors_1 = __importDefault(require("cors"));
+const express_1 = __importDefault(require("express"));
+const path_1 = require("path");
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const morgan_1 = __importDefault(require("morgan"));
+const cors_1 = __importDefault(require("cors"));
 require("dotenv/config");
 require("./database/connection");
-var express_session_1 = __importDefault(require("express-session"));
-var errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
-var passport_1 = __importDefault(require("passport"));
+const express_session_1 = __importDefault(require("express-session"));
+const errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
+const passport_1 = __importDefault(require("passport"));
 require("./helper/passportAuth");
-var uuid_1 = require("uuid");
+const uuid_1 = require("uuid");
 var app = (0, express_1.default)();
 // <<======= Routers=======>>
-var index_1 = __importDefault(require("./routes/index"));
-var menus_1 = __importDefault(require("./routes/menus"));
-var logger_1 = __importDefault(require("./logger"));
+const index_1 = __importDefault(require("./routes/index"));
+const menus_1 = __importDefault(require("./routes/menus"));
 // view engine setup
 app.set("views", (0, path_1.join)(__dirname, "views"));
 app.use((0, cors_1.default)({
@@ -32,7 +31,7 @@ app.use((0, cors_1.default)({
 app.use((0, morgan_1.default)("dev"));
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use((0, express_session_1.default)({
-    genid: function (req) {
+    genid: (req) => {
         return (0, uuid_1.v4)();
     },
     secret: process.env.SESSION_SECRET,
@@ -54,10 +53,11 @@ app.use(function (req, res, next) {
     res.status(404).json({ status: 404, message: "Not Found" });
 });
 app.use(errorHandler_1.default);
-var PORT = 3001;
-app.listen(PORT, function () {
+let PORT = 3001;
+app.listen(PORT, () => {
     // console.log(`\x1b[38;5;${155}mserver started at port \x1b[38;5;${33}m${PORT}\x1b[0m\x1b[0m`);
-    logger_1.default.info("server started at port ".concat(PORT));
+    console.log(`server started at port ${PORT}`);
+    // logger.info(`server started at port ${PORT}`);
 });
 exports.default = app;
 //# sourceMappingURL=index.js.map

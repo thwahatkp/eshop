@@ -3,12 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var winston_1 = require("winston");
-var moment_1 = __importDefault(require("moment"));
-var winston_daily_rotate_file_1 = __importDefault(require("winston-daily-rotate-file"));
-var fs_1 = __importDefault(require("fs"));
-var path_1 = require("path");
-var dir = process.env.LOG_DIR;
+const winston_1 = require("winston");
+const moment_1 = __importDefault(require("moment"));
+const winston_daily_rotate_file_1 = __importDefault(require("winston-daily-rotate-file"));
+const fs_1 = __importDefault(require("fs"));
+const path_1 = require("path");
+let dir = process.env.LOG_DIR;
 if (!dir)
     dir = (0, path_1.resolve)("logs");
 // create directory if it is not present
@@ -17,23 +17,20 @@ if (!fs_1.default.existsSync(dir)) {
     fs_1.default.mkdirSync(dir);
 }
 // Formatter with colorization for console output
-var consoleFormat = winston_1.format.combine(winston_1.format.colorize({ all: true }), winston_1.format.timestamp(), winston_1.format.printf(function (_a) {
-    var timestamp = _a.timestamp, level = _a.level, message = _a.message;
-    return "".concat((0, moment_1.default)(timestamp).format("DD-MM-YYYY hh:mm a"), " [").concat(level, "]: ").concat(message);
+const consoleFormat = winston_1.format.combine(winston_1.format.colorize({ all: true }), winston_1.format.timestamp(), winston_1.format.printf(({ timestamp, level, message }) => {
+    return `${(0, moment_1.default)(timestamp).format("DD-MM-YYYY hh:mm a")} [${level}]: ${message}`;
 }));
 // Create a function to determine the log file based on log level
-var logFile = function (level) {
-    return "logs/".concat(level, ".log");
+const logFile = (level) => {
+    return `logs/${level}.log`;
 };
-var fileFormat = winston_1.format.combine(winston_1.format.timestamp(), winston_1.format.printf(function (_a) {
-    var timestamp = _a.timestamp, level = _a.level, message = _a.message;
-    return "".concat((0, moment_1.default)(timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZ"), " [").concat(level.toUpperCase(), "]: ").concat(message);
+const fileFormat = winston_1.format.combine(winston_1.format.timestamp(), winston_1.format.printf(({ timestamp, level, message }) => {
+    return `${(0, moment_1.default)(timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZ")} [${level.toUpperCase()}]: ${message}`;
 }));
-var logger = (0, winston_1.createLogger)({
+const logger = (0, winston_1.createLogger)({
     level: "debug",
-    format: winston_1.format.combine(winston_1.format.timestamp(), winston_1.format.printf(function (_a) {
-        var timestamp = _a.timestamp, level = _a.level, message = _a.message;
-        return "".concat((0, moment_1.default)(timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZ"), " [").concat(level.toUpperCase(), "]: ").concat(message);
+    format: winston_1.format.combine(winston_1.format.timestamp(), winston_1.format.printf(({ timestamp, level, message }) => {
+        return `${(0, moment_1.default)(timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZ")} [${level.toUpperCase()}]: ${message}`;
     })),
     transports: [
         new winston_1.transports.Console({ format: consoleFormat }),

@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyToken = exports.generateToken = void 0;
-var jsonwebtoken_1 = require("jsonwebtoken");
-var generateToken = function (data) {
+const jsonwebtoken_1 = require("jsonwebtoken");
+let generateToken = (data) => {
     if (typeof data === "object") {
         if (Object.keys(data).length === 0)
             return "object is null";
         // let token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 60 });
-        var token = (0, jsonwebtoken_1.sign)(data, process.env.JWT_SECRET, { expiresIn: "2 days" });
+        let token = (0, jsonwebtoken_1.sign)(data, process.env.JWT_SECRET, { expiresIn: "2 days" });
         return token;
     }
     else {
@@ -15,9 +15,9 @@ var generateToken = function (data) {
     }
 };
 exports.generateToken = generateToken;
-var verifyToken = function (token) {
+let verifyToken = (token) => {
     try {
-        var response = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECRET);
+        let response = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECRET);
         return response;
     }
     catch (error) {

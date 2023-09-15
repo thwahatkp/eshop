@@ -66,7 +66,8 @@ app.use(errorMiddleware);
 let PORT = 3001;
 app.listen(PORT, () => {
   // console.log(`\x1b[38;5;${155}mserver started at port \x1b[38;5;${33}m${PORT}\x1b[0m\x1b[0m`);
-  logger.info(`server started at port ${PORT}`);
+  console.log(`server started at port ${PORT}`);
+  // logger.info(`server started at port ${PORT}`);
 });
 
 export default app;

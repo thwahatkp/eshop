@@ -23,11 +23,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var global_1 = require("../helper/global");
-var controller = __importStar(require("../controller/menus"));
-var router = (0, express_1.Router)();
-var upload = (0, global_1.multerUpload)("category");
+const express_1 = require("express");
+const global_1 = require("../helper/global");
+const controller = __importStar(require("../controller/menus"));
+const router = (0, express_1.Router)();
+const upload = (0, global_1.multerUpload)("category");
 router.post("/category", upload.single("img"), controller.addCategory);
 router.get("/category", controller.listCategory);
 exports.default = router;

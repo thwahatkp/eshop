@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
-    "dev": "node ./dist/index.js"
+    "build": "npx tsc",
+    "build-file": "npx tsc && npx ncp public dist/public && echo 'Public assets copied'",
+    "start": "node dist/index.js",
+    "dev": "nodemon index.ts",
+    "startnodemon": "nodemon"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -44,6 +47,7 @@
     "@types/multer": "^1.4.7",
     "@types/passport": "^1.0.12",
     "@types/uuid": "^9.0.2",
+    "ncp": "^2.0.0",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"

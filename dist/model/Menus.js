@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = require("mongoose");
-var menusSchema = new mongoose_1.Schema({
+const mongoose_1 = require("mongoose");
+let menusSchema = new mongoose_1.Schema({
     categories: [
         {
             name: String,
@@ -20,6 +20,6 @@ var menusSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
-var Menus = (0, mongoose_1.model)("Menus", menusSchema);
+const Menus = (0, mongoose_1.model)("Menus", menusSchema);
 exports.default = Menus;
 //# sourceMappingURL=Menus.js.map

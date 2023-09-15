@@ -31,93 +31,51 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var passport_1 = __importDefault(require("passport"));
-var models = __importStar(require("../model/index"));
-var moment_1 = __importDefault(require("moment"));
-var GoogleStrategy = require("passport-google-oauth20").Strategy;
+const passport_1 = __importDefault(require("passport"));
+const models = __importStar(require("../model/index"));
+const moment_1 = __importDefault(require("moment"));
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 passport_1.default.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_ID_SECRET,
     callbackURL: "/auth/google/callback",
-}, function (accessToken, refreshToken, profile, done) { return __awaiter(void 0, void 0, void 0, function () {
-    var googleUser, user;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, models.Users.findOneAndUpdate({ googleId: profile.id }, {
-                    $set: {
-                        googleId: profile.id,
-                        fname: profile.name.givenName,
-                        lname: profile.name.familyName,
-                        username: profile.displayName,
-                        email: profile.emails[0].value,
-                        avatar: profile.photos[0].value,
-                        date: (0, moment_1.default)().format("YYYY-MM-DD"),
-                        time: (0, moment_1.default)().format("hh:mm:ss"),
-                    },
-                }, {
-                    new: true,
-                    upsert: true,
-                })];
-            case 1:
-                googleUser = _a.sent();
-                user = {
-                    id: profile.id,
-                    fullName: profile.displayName,
-                    name: profile.name,
-                    email: profile.emails[0].value,
-                    photos: profile.photos[0].value,
-                    provider: profile.provider,
-                };
-                done(null, googleUser);
-                return [2 /*return*/];
-        }
+}, (accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
+    let googleUser = yield models.Users.findOneAndUpdate({ googleId: profile.id }, {
+        $set: {
+            googleId: profile.id,
+            fname: profile.name.givenName,
+            lname: profile.name.familyName,
+            username: profile.displayName,
+            email: profile.emails[0].value,
+            avatar: profile.photos[0].value,
+            date: (0, moment_1.default)().format("YYYY-MM-DD"),
+            time: (0, moment_1.default)().format("hh:mm:ss"),
+        },
+    }, {
+        new: true,
+        upsert: true,
     });
-}); }));
-passport_1.default.serializeUser(function (user, done) {
+    const user = {
+        id: profile.id,
+        fullName: profile.displayName,
+        name: profile.name,
+        email: profile.emails[0].value,
+        photos: profile.photos[0].value,
+        provider: profile.provider,
+    };
+    done(null, googleUser);
+})));
+passport_1.default.serializeUser((user, done) => {
     //   console.log(user, "**");
     done(null, user._id);
 });
-passport_1.default.deserializeUser(function (user, done) { return __awaiter(void 0, void 0, void 0, function () {
-    var details;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, models.Users.findById(user).select("-googleId -__v -createdAt -updatedAt")];
-            case 1:
-                details = _a.sent();
-                done(null, details);
-                return [2 /*return*/];
-        }
-    });
-}); });
+passport_1.default.deserializeUser((user, done) => __awaiter(void 0, void 0, void 0, function* () {
+    //   done(null, user);
+    let details = yield models.Users.findById(user).select("-googleId -__v -createdAt -updatedAt");
+    done(null, details);
+}));
 //# sourceMappingURL=passportAuth.js.map
