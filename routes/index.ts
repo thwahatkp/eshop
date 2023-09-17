@@ -33,6 +33,10 @@ router.post("/logout", async (req: Request, res: Response, next: NextFunction) =
       req.logout(function (err: Error) {
         if (err) return console.log(err);
       });
+      res.clearCookie("token", {
+        sameSite: "none",
+        secure: true, // Set to true if using HTTPS
+      });
     }
     res.status(200).json({ status: 200, message: "logged out successfully" });
   } catch (error) {
