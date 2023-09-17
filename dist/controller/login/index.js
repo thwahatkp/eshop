@@ -20,6 +20,7 @@ const types_1 = require("../../helper/types");
 const tryCatch_1 = __importDefault(require("../../middleware/tryCatch"));
 const AppError_1 = __importDefault(require("../../utils/AppError"));
 const AppResponse_1 = __importDefault(require("../../utils/AppResponse"));
+const cookie_1 = __importDefault(require("cookie"));
 const { OK, BAD_REQUEST, FORBIDDEN, UNAUTHORIZED, NOT_FOUND } = types_1.StatusCode;
 let loginUser = (0, tryCatch_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let { username, password } = req.body;
@@ -64,13 +65,16 @@ let loginUser = (0, tryCatch_1.default)((req, res) => __awaiter(void 0, void 0, 
             delete user.date;
             delete user.time;
             let token = (0, token_1.generateToken)({ _id: user._id });
-            // const sameSiteNoneCookie = cookie.serialize("token", token, {
-            //   sameSite: "none",
-            //   secure: true, // Set this to true if using HTTPS
-            // });
+            const twoDaysInSeconds = 2 * 24 * 60 * 60; // 2 days in seconds
+            const expirationDate = new Date(Date.now() + twoDaysInSeconds * 1000);
+            const sameSiteNoneCookie = cookie_1.default.serialize("token", token, {
+                sameSite: "none",
+                secure: true,
+                maxAge: twoDaysInSeconds,
+            });
             // Set the cookie in the response header
-            // res.setHeader("Set-Cookie", sameSiteNoneCookie);
-            res.cookie("token", token, { maxAge: 48 * 60 * 60 * 1000 });
+            res.setHeader("Set-Cookie", sameSiteNoneCookie);
+            // res.cookie("token", token, { maxAge: 48 * 60 * 60 * 1000 });
             return new AppResponse_1.default("success", user, OK);
         }
         else {
