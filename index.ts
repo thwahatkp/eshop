@@ -24,9 +24,9 @@ app.set("views", join(__dirname, "views"));
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://thwahatkp.github.io/eshop", "https://thwahatkp.github.io"],
+    // origin: ["http://localhost:3000", "https://thwahatkp.github.io/eshop", "https://thwahatkp.github.io"],
     // methods: "GET,PUT,POST,DELETE",
-    // origin: true,
+    origin: true,
     credentials: true,
   })
 );
@@ -42,6 +42,8 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
+      sameSite: "none", // This is where you specify SameSite=None
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000, // Set cookie expiration to 24 hours (in milliseconds)
     },
   })

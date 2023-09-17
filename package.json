@@ -6,13 +6,12 @@
   "scripts": {
     "build": "npx tsc",
     "build-file": "npx tsc && npx ncp public dist/public && echo 'Public assets copied'",
-    "start": "node dist/index.js",
-    "dev": "nodemon index.ts",
+    "start": "nodemon index.ts",
+    "dev": "node dist/index.js",
     "startnodemon": "nodemon"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "cookie": "^0.5.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
