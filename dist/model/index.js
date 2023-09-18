@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Product = exports.Menus = exports.LoginAttempt = exports.Users = exports.SideBar = void 0;
-var Sidebar_1 = require("./Sidebar");
-Object.defineProperty(exports, "SideBar", { enumerable: true, get: function () { return __importDefault(Sidebar_1).default; } });
+exports.Product = exports.Menus = exports.LoginAttempt = exports.Users = exports.Slider = void 0;
+var Slider_1 = require("./Slider");
+Object.defineProperty(exports, "Slider", { enumerable: true, get: function () { return __importDefault(Slider_1).default; } });
 var Users_1 = require("./Users");
 Object.defineProperty(exports, "Users", { enumerable: true, get: function () { return __importDefault(Users_1).default; } });
 var LoginAttempt_1 = require("./LoginAttempt");

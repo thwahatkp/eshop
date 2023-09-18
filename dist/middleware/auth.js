@@ -8,37 +8,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.auth = void 0;
 const model_1 = require("../model");
 const token_1 = require("../auth/token");
-let auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        let token = req.cookies.token;
-        if (!!token) {
-            let response = (0, token_1.verifyToken)(token);
-            if (response === "TokenExpiredError") {
-                return res.status(401).json({ staus: false, message: "token expired" });
-            }
-            if (response === "JsonWebTokenError" || response === "SyntaxError") {
-                return res
-                    .status(401)
-                    .json({ staus: false, message: "please provide a valid token" });
-            }
-            let user = yield model_1.Users.findById(response._id).select("-password -__v -createdAt -updatedAt");
-            req.user = user;
-            next();
+const tryCatch_1 = __importDefault(require("./tryCatch"));
+const AppError_1 = __importDefault(require("../utils/AppError"));
+// import AppResponse from "../utils/AppResponse";
+let auth = (0, tryCatch_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    let token = req.cookies.token;
+    if (!!token) {
+        let response = (0, token_1.verifyToken)(token);
+        if (response === "TokenExpiredError") {
+            throw new AppError_1.default(401, "token expired");
         }
-        else {
-            return res
-                .status(401)
-                .json({ staus: false, message: "Please provide a token" });
+        if (response === "JsonWebTokenError" || response === "SyntaxError") {
+            throw new AppError_1.default(401, "please provide a valid token");
         }
+        let user = yield model_1.Users.findById(response._id).select("-password -__v -createdAt -updatedAt");
+        req.user = user;
+        next();
     }
-    catch (error) {
-        res.status(400).json({ status: false, message: error.message });
+    else {
+        throw new AppError_1.default(401, "please provide a token");
     }
-});
+}));
 const _auth = auth;
 exports.auth = _auth;
 //# sourceMappingURL=auth.js.map

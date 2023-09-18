@@ -11,13 +11,14 @@ import errorMiddleware from "./middleware/errorHandler";
 import passport from "passport";
 import "./helper/passportAuth";
 import { v4 as uuidv4 } from "uuid";
+import logger from "./logger";
 
 var app = express();
 
 // <<======= Routers=======>>
 import indexRouter from "./routes/index";
 import menu from "./routes/menus";
-import logger from "./logger";
+import slider from "./routes/slider";
 
 // view engine setup
 app.set("views", join(__dirname, "views"));
@@ -57,6 +58,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use("/", indexRouter);
 app.use("/menu", menu);
+app.use("/slider", slider);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

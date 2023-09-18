@@ -20,6 +20,7 @@ var app = (0, express_1.default)();
 // <<======= Routers=======>>
 const index_1 = __importDefault(require("./routes/index"));
 const menus_1 = __importDefault(require("./routes/menus"));
+const slider_1 = __importDefault(require("./routes/slider"));
 // view engine setup
 app.set("views", (0, path_1.join)(__dirname, "views"));
 app.use((0, cors_1.default)({
@@ -50,6 +51,7 @@ app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
 app.use("/", index_1.default);
 app.use("/menu", menus_1.default);
+app.use("/slider", slider_1.default);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     res.status(404).json({ status: 404, message: "Not Found" });
