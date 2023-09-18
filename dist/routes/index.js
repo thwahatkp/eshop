@@ -24,6 +24,7 @@ var router = (0, express_1.Router)();
 router.get("/", authMiddleware_1.auth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log(req.user);
+        console.log(req.cookies.token);
         res.status(200).json(req.user);
     });
 });
@@ -31,17 +32,13 @@ router.post("/register", register_1.registerUser);
 router.post("/login", login_1.default);
 router.post("/logout", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(req.cookies.token);
         res.clearCookie("token");
-        if (req.user && req.isAuthenticated()) {
-            req.logout(function (err) {
-                if (err)
-                    return console.log(err);
-            });
-            res.clearCookie("token", {
-                sameSite: "none",
-                secure: true, // Set to true if using HTTPS
-            });
-        }
+        // if (req.user && req.isAuthenticated()) {
+        //   req.logout(function (err: Error) {
+        //     if (err) return console.log(err);
+        //   });
+        // }
         res.status(200).json({ status: 200, message: "logged out successfully" });
     }
     catch (error) {

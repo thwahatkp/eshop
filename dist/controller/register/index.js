@@ -46,7 +46,7 @@ exports.registerUser = (0, tryCatch_1.default)((req, res, next) => __awaiter(voi
     response = response.toObject();
     delete response.password;
     let token = (0, token_1.generateToken)({ _id: response._id });
-    res.cookie("token", token, { maxAge: 24 * 60 * 60 * 1000 });
+    res.cookie("token", token, { maxAge: 48 * 60 * 60 * 1000, sameSite: "none", secure: true });
     return new AppResponse_1.default("sucesss", response, CREATED);
 }));
 function githubRegister(req) {

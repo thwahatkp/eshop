@@ -19,6 +19,7 @@ var router = Router();
 // router.get("/", async function (req: Request, res: Response) {
 router.get("/", auth, async function (req: Request, res: Response) {
   console.log(req.user);
+  console.log(req.cookies.token);
   res.status(200).json(req.user);
 });
 
@@ -28,16 +29,13 @@ router.post("/login", loginUser);
 
 router.post("/logout", async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log(req.cookies.token);
     res.clearCookie("token");
-    if (req.user && req.isAuthenticated()) {
-      req.logout(function (err: Error) {
-        if (err) return console.log(err);
-      });
-      res.clearCookie("token", {
-        sameSite: "none",
-        secure: true, // Set to true if using HTTPS
-      });
-    }
+    // if (req.user && req.isAuthenticated()) {
+    //   req.logout(function (err: Error) {
+    //     if (err) return console.log(err);
+    //   });
+    // }
     res.status(200).json({ status: 200, message: "logged out successfully" });
   } catch (error) {
     return next(new AppError(400, error.message));

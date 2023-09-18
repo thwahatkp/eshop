@@ -59,15 +59,15 @@ let loginUser = tryCatch(async (req: Request, res: Response) => {
       let token: string = generateToken({ _id: user._id });
       const twoDaysInSeconds = 2 * 24 * 60 * 60; // 2 days in seconds
       const expirationDate = new Date(Date.now() + twoDaysInSeconds * 1000);
-      const sameSiteNoneCookie = cookie.serialize("token", token, {
-        sameSite: "none",
-        secure: true, // Set this to true if using HTTPS
-        maxAge: twoDaysInSeconds,
-      });
+      // const sameSiteNoneCookie = cookie.serialize("token", token, {
+      //   sameSite: "none",
+      //   secure: true, // Set this to true if using HTTPS
+      //   maxAge: twoDaysInSeconds,
+      // });
 
       // Set the cookie in the response header
-      res.setHeader("Set-Cookie", sameSiteNoneCookie);
-      // res.cookie("token", token, { maxAge: 48 * 60 * 60 * 1000 });
+      // res.setHeader("Set-Cookie", sameSiteNoneCookie);
+      res.cookie("token", token, { maxAge: 48 * 60 * 60 * 1000, sameSite: "none", secure: true });
       return new AppResponse("success", user, OK);
     } else {
       // <<======= checking user allready exist =======>>

@@ -10,6 +10,7 @@ const { BAD_REQUEST, CREATED, CONFLICT } = StatusCode;
 
 export const registerUser = tryCatch(async (req: Request, res: Response, next: NextFunction) => {
   let { firstname, lastname, username, mobile, password, email } = req.body;
+
   let mobileExist = await Users.findOne({ mobile: mobile });
   let emailExist = await Users.findOne({ email: email });
   let usernameExist = await Users.findOne({ username: username });
@@ -39,7 +40,7 @@ export const registerUser = tryCatch(async (req: Request, res: Response, next: N
   response = response.toObject();
   delete response.password;
   let token = generateToken({ _id: response._id });
-  res.cookie("token", token, { maxAge: 24 * 60 * 60 * 1000 });
+  res.cookie("token", token, { maxAge: 48 * 60 * 60 * 1000, sameSite: "none", secure: true });
   return new AppResponse("sucesss", response, CREATED);
 });
 
