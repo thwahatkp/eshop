@@ -6,57 +6,10 @@ const Categories = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
 
   const state = useSelector((state) => state.layout);
   const category = useSelector((state) => state.menus.category);
-
-  const data = [
-    {
-      cateImg: "./category/cat1.png",
-      cateName: "Fashion",
-    },
-    {
-      cateImg: "./category/cat2.png",
-      cateName: "Electronic",
-    },
-    {
-      cateImg: "./category/cat3.png",
-      cateName: "Cars",
-    },
-    {
-      cateImg: "./category/cat4.png",
-      cateName: "Home & Garden",
-    },
-    {
-      cateImg: "./category/cat5.png",
-      cateName: "Gifts",
-    },
-    {
-      cateImg: "./category/cat6.png",
-      cateName: "Music",
-    },
-    {
-      cateImg: "./category/cat7.png",
-      cateName: "Health & Beauty",
-    },
-    {
-      cateImg: "./category/cat8.png",
-      cateName: "Pets",
-    },
-    {
-      cateImg: "./category/cat9.png",
-      cateName: "Baby Toys",
-    },
-    {
-      cateImg: "./category/cat10.png",
-      cateName: "Groceries",
-    },
-    {
-      cateImg: "./category/cat11.png",
-      cateName: "Books",
-    },
-  ];
 
   return (
     <>

@@ -1,15 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
 :root {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
-*{
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: ease .5s
+  transition: ease 0.5s;
 }
 
 /*----- control btn -------*/
@@ -20,7 +25,10 @@
   width: 30px;
   height: 30px;
   line-height: 15px;
-  background: #0f336091;
+  background: rgb(255 255 255 / var(--tw-bg-opacity));
+  /* background: #0f336091; */
+  color: #0f336091;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   transform: 0.5s;
   z-index: 5;
@@ -35,40 +43,52 @@
 .control-btn .next i {
   font-size: 20px;
   transition: 0.5s;
-  color: #fff;
+  color: #0f33604b;
 }
 .control-btn .prev:hover,
 .control-btn .next:hover {
   background: #007dfeaf;
-  color: white;
+  color: #0f33604b;
   cursor: pointer;
 }
 /*----- control btn -------*/
 
-.primary-gradient{
+.primary-gradient {
   @apply bg-gradient-to-r from-red-600 to-pink-500 
-  /* @apply bg-gradient-to-r from-pink-400 to-pink-600 */
+  /* @apply bg-gradient-to-r from-pink-400 to-pink-600 */;
 }
 
-.container{
-  @apply max-w-[90%] m-auto
+.container {
+  @apply max-w-[90%] m-auto;
 }
 
-.row{
-  @apply w-1/2
+.row {
+  @apply w-1/2;
 }
 
-[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{
+[type="text"]:focus,
+[type="email"]:focus,
+[type="url"]:focus,
+[type="password"]:focus,
+[type="number"]:focus,
+[type="date"]:focus,
+[type="datetime-local"]:focus,
+[type="month"]:focus,
+[type="search"]:focus,
+[type="tel"]:focus,
+[type="time"]:focus,
+[type="week"]:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
   border: none !important;
   box-shadow: none !important;
 }
 
-.skeleton{
+.skeleton {
   @apply opacity-70;
   animation: skeleton-loading 1s linear infinite alternate;
 }
-
-
 
 .skeleton-wave {
   background-color: #e0e0e0; /* Set your desired background color */
@@ -77,9 +97,8 @@
   animation: skeleton-wave 1.5s ease-in-out infinite;
 }
 
-.skeleton-text{
+.skeleton-text {
   @apply w-full h-1 rounded-sm m-1;
-
 }
 
 @keyframes skeleton-wave {
@@ -93,11 +112,10 @@
 
 @keyframes skeleton-loading {
   0% {
-    @apply bg-[hsl(200,20%,70%)]
+    @apply bg-[hsl(200,20%,70%)];
   }
   100% {
-    @apply bg-[hsl(200,20%,95%)]
-
+    @apply bg-[hsl(200,20%,95%)];
   }
 }
 
@@ -112,6 +130,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-

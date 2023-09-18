@@ -70,26 +70,21 @@ const FlashCard = ({ productItems }) => {
   return (
     // <div className="grid grid-cols-4">
     <Slider {...settings}>
-    <div className="box grid">
-      <div className="product mtop bg-white p-5 relative rounded-[8px] shadow m-2.5">
-        <div className="img">
-          <Skeleton
-            variant="rectangular"
-            width={"auto"}
-            height={207}
-            style={{ marginBottom: "10px" }}
-          />
-        </div>
-        <div className="product-details font-normal text-[17px]">
-          <Skeleton variant="text" width={150} style={{ marginBottom: "10px" }} />
-          <Skeleton animation="wave" variant="text" width={100} style={{ marginBottom: "5px" }} />
-          <div className="price flex justify-between text-secondary"> 
-            <Skeleton animation="wave" variant="text" width={80} />
-            <Skeleton animation="wave" variant="rounded" width={40} height={40} />
+      <div className="box grid">
+        <div className="product mtop bg-white p-5 relative rounded-[8px] shadow m-2.5">
+          <div className="img">
+            <Skeleton variant="rectangular" width={"auto"} height={200} style={{ marginBottom: "10px" }} />
+          </div>
+          <div className="product-details font-normal text-[17px]">
+            <Skeleton variant="text" width={150} style={{ marginBottom: "10px" }} />
+            <Skeleton animation="wave" variant="text" width={100} style={{ marginBottom: "5px" }} />
+            <div className="price flex justify-between text-secondary">
+              <Skeleton animation="wave" variant="text" width={80} />
+              <Skeleton animation="wave" variant="rounded" width={35} height={35} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
       {productItems.map((productItems, idx) => {
         return (
           <div key={idx} className="box grid ">
@@ -100,14 +95,8 @@ const FlashCard = ({ productItems }) => {
                 </span>
                 <img src={productItems.cover} alt="" />
                 <div className="product-like absolute top-0 right-0 m-2.5 /*opacity-0*/ transition">
-                  <label className="bg-[#0f3460] py-[1px] px-2.5 text-[12px] text-white rounded-[50px]">
-                    {count}
-                  </label>{" "}
-                  <br />
-                  <i
-                    className="fa-regular fa-heart text-[20px] my-2.5 mx-[3px]"
-                    onClick={increment}
-                  ></i>
+                  <label className="bg-[#0f3460] py-[1px] px-2.5 text-[12px] text-white rounded-[50px]">{count}</label> <br />
+                  <i className="fa-regular fa-heart text-[20px] my-2.5 mx-[3px]" onClick={increment}></i>
                 </div>
               </div>
               <div className="product-details font-normal text-[17px]">

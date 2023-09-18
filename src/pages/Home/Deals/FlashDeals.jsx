@@ -55,10 +55,9 @@ const FlashDeals = () => {
             // data-aos="fade-right"
             // data-aos-duration="200"
             // data-aos-offset="120"
-            className="heading f_flex flex items-center"
-          >
-            <i className="fa fa-bolt text-secondary m-2.5"></i>
-            <h className="text-xl md:text-[1.5em] font-semibold">Flash Deals</h>
+            className="heading f_flex flex items-center">
+            <i className="fa fa-bolt text-xl md:text-[30px] text-secondary m-2.5"></i>
+            <h className="text-sm md:text-[1.5em] font-semibold">Flash Deals</h>
           </div>
           <FlashCard productItems={productItems} /*addToCart={addToCart}*/ />
         </div>

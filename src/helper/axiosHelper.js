@@ -1,6 +1,6 @@
 import axios from "axios";
-axios.defaults.withCredentials = true;
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+axios.defaults.withCredentials = true;
 
 export function get(url, config) {
   return new Promise((resolve, reject) => {

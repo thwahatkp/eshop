@@ -3,7 +3,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import {useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { post } from "../../helper/axiosHelper";
@@ -29,22 +29,19 @@ function Login() {
     setDetails({ ...details, [name]: newValue });
   };
 
-
   let handleSubmit = (e, data) => {
     e.preventDefault();
     post(`login`, data)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.code === 200) {
           localStorage.setItem("details", JSON.stringify(res.data));
-          data.rememberMe
-            ? localStorage.setItem("rememberMe", true)
-            : localStorage.removeItem("rememberMe");
+          data.rememberMe ? localStorage.setItem("rememberMe", true) : localStorage.removeItem("rememberMe");
           dispatch(getLoggedDetails());
           navigate("/");
         }
       })
       .catch((err) => {
-        if (err.status >= 400  ) {
+        if (err.code >= 400) {
           setError(err.message);
         }
       });
@@ -94,11 +91,7 @@ function Login() {
               ),
             }}
           />
-          {error && (
-            <span className="text-center font-medium text-red-500 text-sm flex justify-center mb-2 -mt-2">
-              {error}
-            </span>
-          )}
+          {error && <span className="text-center font-medium text-red-500 text-sm flex justify-center mb-2 -mt-2">{error}</span>}
           {/* <div className="flex items-center mt-1 mb-2 ml-1">
             <label
               htmlFor="checked-checkbox"
@@ -115,8 +108,7 @@ function Login() {
           </div> */}
           <button
             type="submit"
-            className="w-full text-white  bg-gradient-to-br from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
+            className="w-full text-white  bg-gradient-to-br from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             Login
           </button>
           <span className="text-center text-base flex justify-center my-2">
@@ -125,20 +117,13 @@ function Login() {
               Sign up
             </Link>
           </span>
-          <span className="flex justify-center my-3 text-lg font-semibold">
-            OR
-          </span>
+          <span className="flex justify-center my-3 text-lg font-semibold">OR</span>
           {/* // <<======= Google =======>> */}
           <button
             type="button"
             onClick={google}
-            className="w-full text-black  bg-white shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] hover:shadow-[rgba(0,0,0,0.25)_1.95px_1.95px_2.6px] border hover:border-gray-500 focus:ring-4 focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center justify-center"
-          >
-            <img
-              src="google.svg"
-              alt="google logo"
-              className="mr-2 -ml-1 w-6 h-6"
-            />
+            className="w-full text-black  bg-white shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] hover:shadow-[rgba(0,0,0,0.25)_1.95px_1.95px_2.6px] border hover:border-gray-500 focus:ring-4 focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center justify-center">
+            <img src="google.svg" alt="google logo" className="mr-2 -ml-1 w-6 h-6" />
             {/* <svg
               className="mr-2 -ml-1 w-4 h-4 google-gradient"
               aria-hidden="true"

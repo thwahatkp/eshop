@@ -5,7 +5,7 @@ let getLoggedDetails = createAsyncThunk(
   "login details",
   () =>
     // (navigate) =>
-    axios.get("").then((res) => res.data || JSON.parse(localStorage.getItem("details")))
+    axios.get("/").then((res) => res.data || JSON.parse(localStorage.getItem("details")))
   // .catch((err) => {
   //   //   navigate("/login");
   //   // console.log(err);

@@ -4,7 +4,7 @@ import axios from "axios";
 const getCategories = createAsyncThunk("category menu", () =>
   axios
     .get("menu/category")
-    .then((res) => res.data)
+    .then((res) => res.data.data)
     .catch((err) => err.response.data)
 );
 
@@ -18,11 +18,11 @@ const menus = createSlice({
     },
   },
   extraReducers: {
-    [getCategories.pending]: (state, action) => {
+    [getCategories.pending]: (state) => {
       state.category.loading = true;
     },
     [getCategories.fulfilled]: (state, action) => {
-      state.category.data = action.payload.data;
+      state.category.data = action.payload.categories;
       state.category.loading = false;
     },
     [getCategories.rejected]: (state, action) => {
