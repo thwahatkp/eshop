@@ -1,12 +1,19 @@
-import { Schema, model } from "mongoose"
+import { Schema, model } from "mongoose";
 
-let schema = new Schema({
-    status: String,
-    name: String,
-    order: Number,
-    icon: String
-})
+interface SideBar extends Document {
+  status: string;
+  name: string;
+  order: number;
+  icon: string;
+}
 
-const SideBar = model("sidebar", schema)
+let schema = new Schema<SideBar>({
+  status: String,
+  name: String,
+  order: Number,
+  icon: String,
+});
 
-export default SideBar
+const SideBar = model<SideBar>("sidebar", schema);
+
+export default SideBar;

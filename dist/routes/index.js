@@ -33,12 +33,13 @@ router.post("/login", login_1.default);
 router.post("/logout", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log(req.cookies.token);
-        res.clearCookie("token");
-        // if (req.user && req.isAuthenticated()) {
-        //   req.logout(function (err: Error) {
-        //     if (err) return console.log(err);
-        //   });
-        // }
+        if (req.user && req.isAuthenticated()) {
+            req.logout(function (err) {
+                if (err)
+                    return console.log(err);
+            });
+        }
+        res.cookie("token", "", { expires: new Date(0) });
         res.status(200).json({ status: 200, message: "logged out successfully" });
     }
     catch (error) {
