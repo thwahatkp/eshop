@@ -6,7 +6,7 @@
   "scripts": {
     "builddd": "npx tsc",
     "buildddd-file": "npx tsc && npx ncp public dist/public && echo 'Public assets copied'",
-    "start": "node dist/index.js",
+    "startt": "node dist/index.js",
     "dev": "nodemon index.ts",
     "startnodemon": "nodemon"
   },
