@@ -6,16 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const winston_1 = require("winston");
 const moment_1 = __importDefault(require("moment"));
 const winston_daily_rotate_file_1 = __importDefault(require("winston-daily-rotate-file"));
-const fs_1 = __importDefault(require("fs"));
-const path_1 = require("path");
 let dir = process.env.LOG_DIR;
-if (!dir)
-    dir = (0, path_1.resolve)("logs");
+// if (!dir) dir = resolve("logs");
 // create directory if it is not present
-if (!fs_1.default.existsSync(dir)) {
-    // Create the directory if it does not exist
-    fs_1.default.mkdirSync(dir);
-}
+// if (!fs.existsSync(dir)) {
+//   // Create the directory if it does not exist
+//   fs.mkdirSync(dir);
+// }
 // Formatter with colorization for console output
 const consoleFormat = winston_1.format.combine(winston_1.format.colorize({ all: true }), winston_1.format.timestamp(), winston_1.format.printf(({ timestamp, level, message }) => {
     return `${(0, moment_1.default)(timestamp).format("DD-MM-YYYY hh:mm a")} [${level}]: ${message}`;

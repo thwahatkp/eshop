@@ -57,7 +57,7 @@ app.use(function (req, res, next) {
     res.status(404).json({ status: 404, message: "Not Found" });
 });
 app.use(errorHandler_1.default);
-let PORT = 3001;
+let PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     // console.log(`\x1b[38;5;${155}mserver started at port \x1b[38;5;${33}m${PORT}\x1b[0m\x1b[0m`);
     console.log(`server started at port ${PORT}`);
