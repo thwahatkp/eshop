@@ -9,10 +9,10 @@ let dir = process.env.LOG_DIR;
 if (!dir) dir = resolve("logs");
 
 // create directory if it is not present
-if (!fs.existsSync(dir)) {
-  // Create the directory if it does not exist
-  fs.mkdirSync(dir);
-}
+// if (!fs.existsSync(dir)) {
+//   // Create the directory if it does not exist
+//   fs.mkdirSync(dir);
+// }
 
 // Formatter with colorization for console output
 const consoleFormat = format.combine(
