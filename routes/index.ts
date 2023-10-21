@@ -36,6 +36,7 @@ router.post("/logout", async (req: Request, res: Response, next: NextFunction) =
       });
     }
     res.cookie("token", "", { expires: new Date(0) });
+    res.clearCookie("token");
     res.status(200).json({ status: 200, message: "logged out successfully" });
   } catch (error) {
     return next(new AppError(400, error.message));
