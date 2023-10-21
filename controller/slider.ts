@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { isNull } from "../helper/global";
-import * as model from "../model";
+import  model from "../model";
 import { ApiResponse, MongoID, StatusCode } from "../helper/types";
 import tryCatch from "../middleware/tryCatch";
 import AppError from "../utils/AppError";
@@ -36,5 +36,5 @@ export const addSlider = tryCatch(async (req: Request) => {
 export const sliderList = tryCatch(async (req: Request) => {
   const slider = await model.Slider.find({ status: 0 }).sort({ _id: -1 }).select("-createdAt -updatedAt -__v");
 
-  return new AppResponse(null, slider, 200);
+  return new AppResponse(null, {data:slider}, 200);
 });

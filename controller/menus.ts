@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { isNull } from "../helper/global";
-import * as model from "../model";
+import model from "../model";
 import { ApiResponse, MongoID, StatusCode } from "../helper/types";
 import tryCatch from "../middleware/tryCatch";
 import AppError from "../utils/AppError";
@@ -30,7 +30,7 @@ export const addCategory = tryCatch(async (req: Request) => {
     },
     { upsert: true }
   );
-  return new AppResponse("success", category, OK);
+  return new AppResponse("success", {data:category}, OK);
 });
 
 export const listCategory = tryCatch(async (req: Request) => {
@@ -51,5 +51,5 @@ export const listCategory = tryCatch(async (req: Request) => {
       },
     },
   ]);
-  return new AppResponse(null, categorie[0], OK);
+  return new AppResponse(null, { data: categorie[0] }, OK);
 });

@@ -7,6 +7,7 @@ import loginUser from "../controller/login";
 import passport from "passport";
 import AppError from "../utils/AppError";
 
+
 declare module "express-session" {
   interface SessionData {
     token: string;

@@ -1,4 +1,4 @@
-import { Users } from "../model";
+import model from "../model";
 import { verifyToken } from "../auth/token";
 import { NextFunction, Request, Response } from "express";
 import tryCatch from "./tryCatch";
@@ -15,7 +15,7 @@ let auth = tryCatch(async (req: Request, res: Response, next: NextFunction) => {
     if (response === "JsonWebTokenError" || response === "SyntaxError") {
       throw new AppError(401, "please provide a valid token");
     }
-    let user = await Users.findById(response._id).select("-password -__v -createdAt -updatedAt");
+    let user = await model.Users.findById(response._id).select("-password -__v -createdAt -updatedAt");
     req.user = user;
     next();
   } else {

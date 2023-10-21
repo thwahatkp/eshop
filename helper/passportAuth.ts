@@ -1,5 +1,5 @@
 import passport from "passport";
-import * as models from "../model/index";
+import models from "../model";
 import moment from "moment";
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 passport.use(

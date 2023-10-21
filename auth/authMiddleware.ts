@@ -1,4 +1,4 @@
-import { Users } from "../model";
+import model from "../model";
 import { verifyToken } from "./token";
 import { Request, Response, NextFunction } from "express";
 
@@ -20,7 +20,7 @@ let auth = async (req: Request | any, res: Response, next: NextFunction) => {
           .status(401)
           .json({ status: false, message: "please provide a valid token" });
       }
-      let user = await Users.findById(response._id).select(
+      let user = await model.Users.findById(response._id).select(
         "-password -__v -createdAt -updatedAt"
       );
       req.user = user;

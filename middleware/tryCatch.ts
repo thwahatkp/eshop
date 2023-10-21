@@ -20,7 +20,7 @@ const tryCatch = (errFunction: Function) => async (req: Request, res: Response, 
 };
 
 const ResponseHandler = (res: Response, result: ApiResponse) => {
-  const response: { code: number; success: boolean; status: string; message?: string; data?: object } = {
+  let response: { code: number; success: boolean; status: string; message?: string; data?: object } = {
     code: result.statusCode,
     success: true,
     status: getReasonPhrase(result.statusCode),
@@ -31,7 +31,7 @@ const ResponseHandler = (res: Response, result: ApiResponse) => {
   }
 
   if (!isNull(result.data)) {
-    response.data = result.data;
+    response = { ...response, ...result.data };
   }
 
   res.status(result.statusCode).json(response);

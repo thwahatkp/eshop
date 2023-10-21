@@ -5,13 +5,14 @@ import cookieParser from "cookie-parser";
 import loggers from "morgan";
 import cors from "cors";
 import "dotenv/config";
-import "./database/connection";
 import session from "express-session";
 import errorMiddleware from "./middleware/errorHandler";
 import passport from "passport";
 import "./helper/passportAuth";
 import { v4 as uuidv4 } from "uuid";
 import logger from "./logger";
+
+import connectDB from "./database/connection";
 
 var app = express();
 
@@ -68,10 +69,12 @@ app.use(function (req, res, next) {
 app.use(errorMiddleware);
 
 let PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  // console.log(`\x1b[38;5;${155}mserver started at port \x1b[38;5;${33}m${PORT}\x1b[0m\x1b[0m`);
-  console.log(`server started at port ${PORT}`);
-  // logger.info(`server started at port ${PORT}`);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    // console.log(`\x1b[38;5;${155}mserver started at port \x1b[38;5;${33}m${PORT}\x1b[0m\x1b[0m`);
+    console.log(`server started at port ${PORT}`);
+    // logger.info(`server started at port ${PORT}`);
+  });
 });
 
 export default app;

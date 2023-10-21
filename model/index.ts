@@ -1,5 +1,15 @@
-export { default as Slider } from "./Slider";
-export { default as Users } from "./Users";
-export { default as LoginAttempt } from "./LoginAttempt";
-export { default as Menus } from "./Menus";
-export { default as Product } from "./Product";
+import Slider from "./Slider";
+import LoginAttempt from "./LoginAttempt";
+import Menus from "./Menus";
+import Product from "./Product";
+import UserToken from "./UserToken";
+import Users from "./Users";
+
+export default {
+  Users,
+  Slider,
+  LoginAttempt,
+  Menus,
+  Product,
+  UserToken,
+};

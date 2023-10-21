@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
 import { generateToken } from "../../auth/token";
-import { LoginAttempt, Users } from "../../model";
+import model from "../../model";
 import { isNull } from "../../helper/global";
 import moment from "moment";
 import { StatusCode } from "../../helper/types";
 import tryCatch from "../../middleware/tryCatch";
 import AppError from "../../utils/AppError";
 import AppResponse from "../../utils/AppResponse";
-import cookie from "cookie";
 
 const { OK, BAD_REQUEST, FORBIDDEN, UNAUTHORIZED, NOT_FOUND } = StatusCode;
 
@@ -26,13 +25,13 @@ let loginUser = tryCatch(async (req: Request, res: Response) => {
     username = parseInt(username);
     search = { mobile: username };
   }
-  let user = await Users.findOne({
+  let user = await model.Users.findOne({
     $or: [search, { email: username }],
   }).select("-__v -createdAt -updatedAt");
 
   if (user) {
     // <<======= Checking user account blocked =======>>
-    const blockedUser = await LoginAttempt.findOne({ username: user?.username });
+    const blockedUser = await model.LoginAttempt.findOne({ username: user?.username });
     if (blockedUser) {
       if (blockedUser && blockedUser.blockedUntil && moment(blockedUser?.blockedUntil).isAfter(moment())) {
         const remainingTime = moment(blockedUser.blockedUntil).format("DD-MM-YY hh:mm a ");
@@ -42,7 +41,7 @@ let loginUser = tryCatch(async (req: Request, res: Response) => {
         throw new AppError(FORBIDDEN, `Your account is blocked. Please try again after ${remainingTime}.`);
       }
     } else {
-      await new LoginAttempt({ ip: req.ip, username: username }).save();
+      await new model.LoginAttempt({ ip: req.ip, username: username }).save();
     }
     // <<======= Validate Password =======>>
     let pass = user.validatePassword(password, user.password);
@@ -56,7 +55,7 @@ let loginUser = tryCatch(async (req: Request, res: Response) => {
       delete user.password;
       delete user.date;
       delete user.time;
-      let token: string = generateToken({ _id: user._id });
+      let { accessToken, refreshToken } = await generateToken({ _id: user._id });
       const twoDaysInSeconds = 2 * 24 * 60 * 60; // 2 days in seconds
       const expirationDate = new Date(Date.now() + twoDaysInSeconds * 1000);
       // const sameSiteNoneCookie = cookie.serialize("token", token, {
@@ -67,8 +66,9 @@ let loginUser = tryCatch(async (req: Request, res: Response) => {
 
       // Set the cookie in the response header
       // res.setHeader("Set-Cookie", sameSiteNoneCookie);
-      res.cookie("token", token, { maxAge: 48 * 60 * 60 * 1000, sameSite: "none", secure: true });
-      return new AppResponse("success", user, OK);
+      res.cookie("token", accessToken, { maxAge: 48 * 60 * 60 * 1000, sameSite: "none", secure: true });
+
+      return new AppResponse("success", { data: user, accessToken, refreshToken }, OK);
     } else {
       // <<======= checking user allready exist =======>>
       if (blockedUser) {
@@ -88,7 +88,7 @@ let loginUser = tryCatch(async (req: Request, res: Response) => {
         blockedUser.time = moment().format("hh:mm:ss");
         await blockedUser.save();
       } else {
-        const blockedUser = new LoginAttempt({
+        const blockedUser = new model.LoginAttempt({
           ip: req.ip,
           username: username,
         }).save();
