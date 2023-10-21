@@ -43,23 +43,23 @@ const logger = createLogger({
       return `${moment(timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZ")} [${level.toUpperCase()}]: ${message}`;
     })
   ),
-  transports: [
-    new transports.Console({ format: consoleFormat }),
-    new DailyRotateFile({
-      level: "info",
-      filename: logFile("app.%DATE%"),
-      format: fileFormat,
-      datePattern: "YYYY-MM-DD",
-      maxFiles: "10d",
-    }),
-    new DailyRotateFile({
-      level: "error",
-      filename: logFile("error.%DATE%"),
-      format: fileFormat,
-      datePattern: "YYYY-MM-DD",
-      maxFiles: "10d",
-    }),
-  ],
+  // transports: [
+  //   new transports.Console({ format: consoleFormat }),
+  //   new DailyRotateFile({
+  //     level: "info",
+  //     filename: logFile("app.%DATE%"),
+  //     format: fileFormat,
+  //     datePattern: "YYYY-MM-DD",
+  //     maxFiles: "10d",
+  //   }),
+  //   new DailyRotateFile({
+  //     level: "error",
+  //     filename: logFile("error.%DATE%"),
+  //     format: fileFormat,
+  //     datePattern: "YYYY-MM-DD",
+  //     maxFiles: "10d",
+  //   }),
+  // ],
 });
 
 export default logger;

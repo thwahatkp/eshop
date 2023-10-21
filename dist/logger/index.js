@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const winston_1 = require("winston");
 const moment_1 = __importDefault(require("moment"));
-const winston_daily_rotate_file_1 = __importDefault(require("winston-daily-rotate-file"));
 let dir = process.env.LOG_DIR;
 // if (!dir) dir = resolve("logs");
 // create directory if it is not present
@@ -29,23 +28,23 @@ const logger = (0, winston_1.createLogger)({
     format: winston_1.format.combine(winston_1.format.timestamp(), winston_1.format.printf(({ timestamp, level, message }) => {
         return `${(0, moment_1.default)(timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZ")} [${level.toUpperCase()}]: ${message}`;
     })),
-    transports: [
-        new winston_1.transports.Console({ format: consoleFormat }),
-        new winston_daily_rotate_file_1.default({
-            level: "info",
-            filename: logFile("app.%DATE%"),
-            format: fileFormat,
-            datePattern: "YYYY-MM-DD",
-            maxFiles: "10d",
-        }),
-        new winston_daily_rotate_file_1.default({
-            level: "error",
-            filename: logFile("error.%DATE%"),
-            format: fileFormat,
-            datePattern: "YYYY-MM-DD",
-            maxFiles: "10d",
-        }),
-    ],
+    // transports: [
+    //   new transports.Console({ format: consoleFormat }),
+    //   new DailyRotateFile({
+    //     level: "info",
+    //     filename: logFile("app.%DATE%"),
+    //     format: fileFormat,
+    //     datePattern: "YYYY-MM-DD",
+    //     maxFiles: "10d",
+    //   }),
+    //   new DailyRotateFile({
+    //     level: "error",
+    //     filename: logFile("error.%DATE%"),
+    //     format: fileFormat,
+    //     datePattern: "YYYY-MM-DD",
+    //     maxFiles: "10d",
+    //   }),
+    // ],
 });
 exports.default = logger;
 //# sourceMappingURL=index.js.map
