@@ -23,7 +23,7 @@ const refreshToken = (0, tryCatch_1.default)((req, res) => __awaiter(void 0, voi
     return (0, token_1.verifyRefreshToken)(refreshToken)
         .then((data) => {
         const accessToken = (0, jsonwebtoken_1.sign)({ _id: data.tokenDetails._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
-        res.cookie("token", accessToken, { maxAge: 15000, sameSite: "none", secure: true });
+        res.cookie("token", accessToken, { maxAge: 15 * 60 * 1000, sameSite: "none", secure: true });
         return new AppResponse_1.default("success", { accessToken }, types_1.StatusCode.OK);
     })
         .catch((err) => {

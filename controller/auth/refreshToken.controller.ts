@@ -13,7 +13,7 @@ const refreshToken = tryCatch(async (req: Request, res: Response) => {
   return verifyRefreshToken(refreshToken)
     .then((data: { tokenDetails: { _id: Types.ObjectId }; success: boolean; message: string }) => {
       const accessToken = sign({ _id: data.tokenDetails._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
-      res.cookie("token", accessToken, { maxAge: 15000, sameSite: "none", secure: true });
+      res.cookie("token", accessToken, { maxAge: 15 * 60 * 1000, sameSite: "none", secure: true });
       return new AppResponse("success", { accessToken }, StatusCode.OK);
     })
     .catch((err: { success: boolean; message: string }) => {

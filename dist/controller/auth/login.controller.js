@@ -74,7 +74,7 @@ let loginUser = (0, tryCatch_1.default)((req, res) => __awaiter(void 0, void 0, 
             // Set the cookie in the response header
             // res.setHeader("Set-Cookie", sameSiteNoneCookie);
             // res.cookie("token", accessToken, { maxAge: 48 * 60 * 60 * 1000, sameSite: "none", secure: true });
-            res.cookie("token", accessToken, { maxAge: 15000, sameSite: "none", secure: true });
+            res.cookie("token", accessToken, { maxAge: 15 * 60 * 1000, sameSite: "none", secure: true });
             return new AppResponse_1.default("success", { data: user, accessToken, refreshToken }, OK);
         }
         else {
