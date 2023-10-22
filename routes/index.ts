@@ -7,6 +7,7 @@ import loginUser from "../controller/auth/login.controller";
 import passport from "passport";
 import AppError from "../utils/AppError";
 import refreshToken from "../controller/auth/refreshToken.controller";
+import model from "../model";
 
 declare module "express-session" {
   interface SessionData {
@@ -30,15 +31,18 @@ router.post("/login", loginUser);
 
 router.post("/refreshToken", refreshToken);
 
-router.post("/logout", async (req: Request, res: Response, next: NextFunction) => {
+router.post("/logout", auth, async (req: Request | any, res: Response, next: NextFunction) => {
   try {
-    console.log(req.cookies.token);
+    await model.UserToken.findOneAndDelete({ userId: req.user._id });
+
     if (req.user && req.isAuthenticated()) {
       req.logout(function (err: Error) {
         if (err) return console.log(err);
       });
     }
-    res.cookie("token", "", { expires: new Date(0) });
+
+    res.cookie("token", "", { expires: new Date(0), sameSite: "none", secure: true });
+    // res.cookie("token", "", { expires: new Date(0) });
     res.clearCookie("token");
     res.status(200).json({ status: 200, message: "logged out successfully" });
   } catch (error) {

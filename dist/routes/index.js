@@ -20,6 +20,7 @@ const login_controller_1 = __importDefault(require("../controller/auth/login.con
 const passport_1 = __importDefault(require("passport"));
 const AppError_1 = __importDefault(require("../utils/AppError"));
 const refreshToken_controller_1 = __importDefault(require("../controller/auth/refreshToken.controller"));
+const model_1 = __importDefault(require("../model"));
 var router = (0, express_1.Router)();
 // router.get("/", async function (req: Request, res: Response) {
 router.get("/", authMiddleware_1.auth, function (req, res) {
@@ -32,16 +33,17 @@ router.get("/", authMiddleware_1.auth, function (req, res) {
 router.post("/register", register_controller_1.registerUser);
 router.post("/login", login_controller_1.default);
 router.post("/refreshToken", refreshToken_controller_1.default);
-router.post("/logout", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/logout", authMiddleware_1.auth, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(req.cookies.token);
+        yield model_1.default.UserToken.findOneAndDelete({ userId: req.user._id });
         if (req.user && req.isAuthenticated()) {
             req.logout(function (err) {
                 if (err)
                     return console.log(err);
             });
         }
-        res.cookie("token", "", { expires: new Date(0) });
+        res.cookie("token", "", { expires: new Date(0), sameSite: "none", secure: true });
+        // res.cookie("token", "", { expires: new Date(0) });
         res.clearCookie("token");
         res.status(200).json({ status: 200, message: "logged out successfully" });
     }

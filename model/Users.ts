@@ -1,8 +1,9 @@
-import mongoose, { Document, Schema, StringExpressionOperatorReturningArray } from "mongoose";
+import mongoose, { Document, Schema, StringExpressionOperatorReturningArray, Types } from "mongoose";
 import { genSaltSync, hashSync, compareSync } from "bcryptjs";
 import moment from "moment";
 
 interface User extends Document {
+  _id: Types.ObjectId;
   ip?: string;
   fname?: string;
   lname?: string;
@@ -51,4 +52,5 @@ userSchema.methods.validatePassword = function (password: string, hashedPassword
 };
 
 const Users = mongoose.model<User>("users", userSchema);
+export { User };
 export default Users;
