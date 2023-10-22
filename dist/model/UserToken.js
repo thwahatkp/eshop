@@ -17,8 +17,7 @@ const userTokenSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        expires: 10, // 30 days
-        // expires: 30 * 86400, // 30 days
+        expires: 30 * 86400, // 30 days
     },
 });
 const UserToken = mongoose_1.default.model("UserToken", userTokenSchema);

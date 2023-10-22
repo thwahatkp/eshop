@@ -17,14 +17,18 @@ interface Search {
 
 let loginUser = tryCatch(async (req: Request, res: Response) => {
   let { username, password } = req.body;
+
   if (isNull(username)) throw new AppError(BAD_REQUEST, "Please provide a username");
+
   if (isNull(password)) throw new AppError(BAD_REQUEST, "Please provide a password");
+
   let search: Search = { username: username };
   // <<======= checking username is mobile no =======>>
   if (!isNaN(username)) {
     username = parseInt(username);
     search = { mobile: username };
   }
+
   let user = await model.Users.findOne({
     $or: [search, { email: username }],
   }).select("-__v -createdAt -updatedAt");
@@ -66,7 +70,8 @@ let loginUser = tryCatch(async (req: Request, res: Response) => {
 
       // Set the cookie in the response header
       // res.setHeader("Set-Cookie", sameSiteNoneCookie);
-      res.cookie("token", accessToken, { maxAge: 48 * 60 * 60 * 1000, sameSite: "none", secure: true });
+      // res.cookie("token", accessToken, { maxAge: 48 * 60 * 60 * 1000, sameSite: "none", secure: true });
+      res.cookie("token", accessToken, { maxAge: 15000, sameSite: "none", secure: true });
 
       return new AppResponse("success", { data: user, accessToken, refreshToken }, OK);
     } else {

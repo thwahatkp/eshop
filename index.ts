@@ -18,8 +18,8 @@ var app = express();
 
 // <<======= Routers=======>>
 import indexRouter from "./routes/index";
-import menu from "./routes/menus";
-import slider from "./routes/slider";
+import menu from "./routes/menus.router";
+import slider from "./routes/slider.router";
 
 // view engine setup
 app.set("views", join(__dirname, "views"));

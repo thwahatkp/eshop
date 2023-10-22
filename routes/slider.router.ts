@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { multerUpload } from "../helper/global";
-import * as controller from "../controller/slider";
+import * as controller from "../controller/slider.controller";
 
 const router = Router();
 

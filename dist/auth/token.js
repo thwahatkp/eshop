@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyToken = exports.generateToken = void 0;
+exports.verifyRefreshToken = exports.verifyToken = exports.generateToken = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
 const jsonwebtoken_2 = __importDefault(require("jsonwebtoken"));
 const model_1 = __importDefault(require("../model"));
@@ -32,9 +32,9 @@ const generateToken = (user) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.generateToken = generateToken;
-let verifyToken = (token) => {
+const verifyToken = (token) => {
     try {
-        let response = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECRET);
+        let response = (0, jsonwebtoken_1.verify)(token, process.env.ACCESS_TOKEN_SECRET);
         return response;
     }
     catch (error) {
@@ -42,4 +42,21 @@ let verifyToken = (token) => {
     }
 };
 exports.verifyToken = verifyToken;
+const verifyRefreshToken = (refreshToken) => {
+    return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
+        const doc = yield model_1.default.UserToken.findOne({ token: refreshToken });
+        if (!doc)
+            return reject({ success: false, message: "Invalid refresh token" });
+        (0, jsonwebtoken_1.verify)(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, tokenDetails) => {
+            if (err)
+                return reject({ success: false, message: "Invalid refresh token" });
+            resolve({
+                tokenDetails,
+                success: true,
+                message: "Valid refresh token",
+            });
+        });
+    }));
+};
+exports.verifyRefreshToken = verifyRefreshToken;
 //# sourceMappingURL=token.js.map

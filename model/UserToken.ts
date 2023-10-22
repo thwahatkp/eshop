@@ -20,8 +20,7 @@ const userTokenSchema = new Schema<Token>({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 10, // 30 days
-    // expires: 30 * 86400, // 30 days
+    expires: 30 * 86400, // 30 days
   },
 });
 

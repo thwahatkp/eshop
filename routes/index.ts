@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 // import model from "../model";
 import { auth } from "../auth/authMiddleware";
-import { registerUser, githubRegister } from "../controller/register";
-import loginUser from "../controller/login";
+import { registerUser, githubRegister } from "../controller/auth/register.controller";
+import loginUser from "../controller/auth/login.controller";
 import passport from "passport";
 import AppError from "../utils/AppError";
-
+import refreshToken from "../controller/auth/refreshToken.controller";
 
 declare module "express-session" {
   interface SessionData {
@@ -27,6 +27,8 @@ router.get("/", auth, async function (req: Request, res: Response) {
 router.post("/register", registerUser);
 
 router.post("/login", loginUser);
+
+router.post("/refreshToken", refreshToken);
 
 router.post("/logout", async (req: Request, res: Response, next: NextFunction) => {
   try {

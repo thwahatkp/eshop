@@ -15,10 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 // import model from "../model";
 const authMiddleware_1 = require("../auth/authMiddleware");
-const register_1 = require("../controller/register");
-const login_1 = __importDefault(require("../controller/login"));
+const register_controller_1 = require("../controller/auth/register.controller");
+const login_controller_1 = __importDefault(require("../controller/auth/login.controller"));
 const passport_1 = __importDefault(require("passport"));
 const AppError_1 = __importDefault(require("../utils/AppError"));
+const refreshToken_controller_1 = __importDefault(require("../controller/auth/refreshToken.controller"));
 var router = (0, express_1.Router)();
 // router.get("/", async function (req: Request, res: Response) {
 router.get("/", authMiddleware_1.auth, function (req, res) {
@@ -28,8 +29,9 @@ router.get("/", authMiddleware_1.auth, function (req, res) {
         res.status(200).json(req.user);
     });
 });
-router.post("/register", register_1.registerUser);
-router.post("/login", login_1.default);
+router.post("/register", register_controller_1.registerUser);
+router.post("/login", login_controller_1.default);
+router.post("/refreshToken", refreshToken_controller_1.default);
 router.post("/logout", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log(req.cookies.token);
