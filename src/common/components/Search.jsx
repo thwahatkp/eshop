@@ -1,11 +1,7 @@
 // import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { post } from "../../helper/axiosHelper";
 import { logout } from "../../redux/reducers/user";
@@ -15,14 +11,11 @@ const Search = () => {
   // <<======= Actions =======>>
   const dispatch = useDispatch();
   // <<======= State =======>>
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(false);
   const user = useSelector((state) => state.user);
   // <<======= Functions =======>>
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleOpenUserMenu = () => {
+    setAnchorElUser(!anchorElUser);
   };
 
   const handleLogout = () => {
@@ -37,6 +30,10 @@ const Search = () => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    anchorElUser ? (document.body.style.overflow = "hidden") : (document.body.style.overflow = "auto");
+  }, [anchorElUser]);
 
   return (
     <section className="py-5 pb-2 md:pb-5">
@@ -70,50 +67,37 @@ const Search = () => {
           </div>
 
           {/* <========>> */}
-          <Box sx={{ flexGrow: 0, position: "relative" }}>
-            <i
-              onClick={handleOpenUserMenu}
-              className="w-[40px] hover:text-primary-hover cursor-pointer h-[40px] leading-[40px] md:w-[50px] md:h-[50px] md:leading-[50px] fa fa-user  md:bg-[#f3f5f9] ml-2 md:ml-5 text-center md:rounded-full"></i>
 
-            <Menu
-              sx={{ mt: "50px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}>
-              <MenuItem key={"Profile"} onClick={handleCloseUserMenu}>
-                <NavLink to="/profile">
-                  <Typography textAlign="center">Profile</Typography>
-                </NavLink>
-              </MenuItem>
-              <MenuItem key={"Account"} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Account</Typography>
-              </MenuItem>
-              <MenuItem key={"Dashboard"} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Dashboard</Typography>
-              </MenuItem>
-              <MenuItem key={"login"} onClick={handleCloseUserMenu}>
-                {user.logged ? (
-                  <Typography textAlign="center" onClick={handleLogout}>
-                    Logout
-                  </Typography>
-                ) : (
-                  <NavLink to="/login">
-                    <Typography textAlign="center">Login</Typography>
-                  </NavLink>
-                )}
-              </MenuItem>
-            </Menu>
-          </Box>
+          <i
+            onClick={handleOpenUserMenu}
+            className="w-[40px] hover:text-primary-hover cursor-pointer h-[40px] leading-[40px] md:w-[50px] md:h-[50px] md:leading-[50px] fa fa-user  md:bg-[#f3f5f9] ml-2 md:ml-5 text-center md:rounded-full"></i>
+
+          <div
+            className={`fixed inset-0 z-10 m-0 ${
+              anchorElUser ? "opacity-100 transform translate-x-0" : "opacity-0 transform -translate-x-full"
+            } ease-in-out duration-700 transition-opacity  justify-end flex bg-[rgba(0,0,0,0.5)] `}>
+            <div className={`mr-9 mt-20 bg-white h-fit p-4 border rounded`}>
+              <ul className="flex space-y-3 flex-col">
+                <li>
+                  <span onClick={handleOpenUserMenu} className="hover:text-primary cursor-pointer">
+                    Account
+                  </span>
+                </li>
+                <li>
+                  {user.logged ? (
+                    <span className="hover:text-primary cursor-pointer" onClick={handleLogout}>
+                      Logout
+                    </span>
+                  ) : (
+                    <NavLink onClick={handleOpenUserMenu} to="/login">
+                      <span className="hover:text-primary cursor-pointer">Login</span>
+                    </NavLink>
+                  )}
+                </li>
+              </ul>
+            </div>
+          </div>
+
           {/* <========>> */}
 
           {/* <i className="w-[40px] h-[40px] leading-[40px] md:w-[50px] md:h-[50px] md:leading-[50px] fa fa-user  bg-[#f3f5f9] ml-5 text-center rounded-full"></i> */}
