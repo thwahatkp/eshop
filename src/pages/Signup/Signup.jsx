@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
-import {  post } from "../../helper/axiosHelper";
+import { post } from "../../helper/axiosHelper";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getLoggedDetails } from "../../redux/reducers/user";
@@ -34,7 +34,6 @@ function Signup() {
 
     post(`register`, details)
       .then((res) => {
-        console.log(res);
         if (res.status === 201) {
           localStorage.setItem("details", JSON.stringify(res.data));
           dispatch(getLoggedDetails());

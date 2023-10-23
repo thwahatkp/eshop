@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { post } from "../../helper/axiosHelper";
+import Cookies from "js-cookie";
+import { handleLogout } from "../../common/functions/logout";
 
-let getLoggedDetails = createAsyncThunk(
+const getLoggedDetails = createAsyncThunk(
   "login details",
   () =>
     // (navigate) =>
@@ -12,6 +15,20 @@ let getLoggedDetails = createAsyncThunk(
   //   return err.response.data;
   // })
 );
+
+const generateAccessToken = createAsyncThunk("accessToken", (data, thunk) => {
+  const refreshToken = Cookies.get("_token") || sessionStorage.getItem("_token");
+  post("/refreshToken", { refreshToken })
+    .then((res) => {
+      // const accessToken = res.accessToken;
+      // console.log(accessToken);
+    })
+    .catch((err) => {
+      // thunk.dispatch(logout());
+      handleLogout(thunk.dispatch);
+    });
+});
+
 let userDetails = createSlice({
   name: "userDetails",
   initialState: {
@@ -21,7 +38,7 @@ let userDetails = createSlice({
     username: "",
     mobile: "",
     email: "",
-    logged: JSON.parse(localStorage.getItem("details")) ? true : false,
+    logged: Cookies.get("_token") || sessionStorage.getItem("_token") ? true : false,
   },
   reducers: {
     logout: (state, action) => {
@@ -31,6 +48,9 @@ let userDetails = createSlice({
         // state[key] = ""
       });
       state.logged = false;
+      localStorage.removeItem("details");
+      sessionStorage.removeItem("_token");
+      Cookies.remove("_token");
     },
   },
   extraReducers: {
@@ -50,5 +70,5 @@ let userDetails = createSlice({
 });
 
 export const { logout } = userDetails.actions;
-export { getLoggedDetails };
+export { getLoggedDetails, generateAccessToken };
 export default userDetails.reducer;

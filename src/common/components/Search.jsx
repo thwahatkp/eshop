@@ -1,10 +1,12 @@
 // import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { post } from "../../helper/axiosHelper";
 import { logout } from "../../redux/reducers/user";
+import Cookies from "js-cookie";
+import { handleLogout } from "../functions/logout";
 
 // import { sidebar } from "../../redux/reducers/layout";
 const Search = () => {
@@ -13,27 +15,44 @@ const Search = () => {
   // <<======= State =======>>
   const [anchorElUser, setAnchorElUser] = useState(false);
   const user = useSelector((state) => state.user);
+  const menuRef = useRef();
   // <<======= Functions =======>>
   const handleOpenUserMenu = () => {
     setAnchorElUser(!anchorElUser);
   };
 
-  const handleLogout = () => {
-    post("logout")
-      .then((res) => {
-        if (res.status === 200) {
-          dispatch(logout());
-          localStorage.removeItem("details");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //  const handleLogout = () => {
+  //   post("logout")
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         dispatch(logout());
+  //         localStorage.removeItem("details");
+  //         sessionStorage.removeItem("_token");
+  //         Cookies.remove("_token");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  function Logout() {
+    handleLogout(dispatch);
+  }
 
   useEffect(() => {
     anchorElUser ? (document.body.style.overflow = "hidden") : (document.body.style.overflow = "auto");
   }, [anchorElUser]);
+
+  useEffect(() => {
+    function handleCloseUserMenu(e) {
+      if (!menuRef.current.contains(e.target)) setAnchorElUser(false);
+    }
+    document.addEventListener("mousedown", handleCloseUserMenu);
+    return () => {
+      document.removeEventListener("mousedown", handleCloseUserMenu);
+    };
+  });
 
   return (
     <section className="py-5 pb-2 md:pb-5">
@@ -75,8 +94,10 @@ const Search = () => {
           <div
             className={`fixed inset-0 z-10 m-0 ${
               anchorElUser ? "opacity-100 transform translate-x-0" : "opacity-0 transform -translate-x-full"
-            } ease-in-out duration-700 transition-opacity  justify-end flex bg-[rgba(0,0,0,0.5)] `}>
-            <div className={`mr-9 mt-20 bg-white h-fit p-4 border rounded`}>
+            } ease-in-out duration-700 transition-opacity bg-[rgba(0,0,0,0.5)] flex justify-center sm:justify-end`}>
+            <div
+              ref={menuRef}
+              className={`sm:mr-9 mt-20 bg-white  p-4 border rounded w-40 h-48 sm:h-fit sm:w-auto flex items-center text-center justify-center sm:text-left`}>
               <ul className="flex space-y-3 flex-col">
                 <li>
                   <span onClick={handleOpenUserMenu} className="hover:text-primary cursor-pointer">
@@ -85,7 +106,7 @@ const Search = () => {
                 </li>
                 <li>
                   {user.logged ? (
-                    <span className="hover:text-primary cursor-pointer" onClick={handleLogout}>
+                    <span className="hover:text-primary cursor-pointer" onClick={Logout}>
                       Logout
                     </span>
                   ) : (
