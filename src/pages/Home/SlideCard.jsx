@@ -4,38 +4,11 @@ import "slick-carousel/slick/slick-theme.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSlider } from "../../redux/reducers/slider";
-
-const Sdata = [
-  {
-    id: 1,
-    title: "50% Off For Your First Shopping",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lobortis consequat eu, quam etiam at quis ut convallis.",
-    cover: "./SlideCard/slide-1.png",
-  },
-  {
-    id: 2,
-    title: "50% Off For Your First Shopping",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lobortis consequat eu, quam etiam at quis ut convallis.",
-    cover: "./SlideCard/slide-2.png",
-  },
-  {
-    id: 3,
-    title: "50% Off For Your First Shopping",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lobortis consequat eu, quam etiam at quis ut convallis.",
-    cover: "./SlideCard/slide-3.png",
-  },
-  {
-    id: 4,
-    title: "50% Off For Your First Shopping",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lobortis consequat eu, quam etiam at quis ut convallis.",
-    cover: "./SlideCard/slide-4.png",
-  },
-];
+import { motion } from "framer-motion";
 
 const SlideCard = () => {
   const dispatch = useDispatch();
   const slider = useSelector((state) => state.slider.data);
-  console.log(slider);
   useEffect(() => {
     dispatch(getSlider());
   }, [dispatch]);
@@ -58,7 +31,7 @@ const SlideCard = () => {
         <Slider {...settings}>
           {slider.map((value, index) => {
             return (
-              <div key={value._id}>
+              <motion.div initial={{ scale: 0.8 }} whileInView={{ scale: 1 }} key={value._id}>
                 <div
                   className="box flex flex-col max-h-[40%] lg:max-h-none items-center lg:items-start lg:flex-row justify-between lg:mt-[80px]"
                   key={index}>
@@ -70,10 +43,10 @@ const SlideCard = () => {
                     <button className="py-[10px]  px-10 font-bold text-white rounded-[8px] bg-primary mb-8 lg:mb-0">{value.btn_name}</button>
                   </div>
                   <div className="right order-1 lg:order-none mt-10 lg:mt-0 flex items-center justify-center">
-                    <img className="h-56 lg:h-full object-center" loading="lazy" src={`${import.meta.env.VITE_API_URL}${value.img}`} alt="" />
+                    <img className="h-56 lg:h-full object-center" loading="lazy" src={`${import.meta.env.VITE_API_URL_CYCLIC}${value.img}`} alt="" />
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               // <div key={index}>
               //   <div

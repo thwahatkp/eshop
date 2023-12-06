@@ -8,7 +8,7 @@ const getLoggedDetails = createAsyncThunk(
   "login details",
   () =>
     // (navigate) =>
-    axios.get("/").then((res) => res.data || JSON.parse(localStorage.getItem("details")))
+    axios.get(import.meta.env.VITE_API_URL_CYCLIC).then((res) => res.data || JSON.parse(localStorage.getItem("details")))
   // .catch((err) => {
   //   //   navigate("/login");
   //   // console.log(err);

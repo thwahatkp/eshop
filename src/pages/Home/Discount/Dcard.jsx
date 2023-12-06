@@ -109,45 +109,37 @@ const Dcard = () => {
   return (
     <>
       <Slider {...settings}>
-      <div
-      // data-aos="zoom-in-up"
-      // data-aos-duration="200"
-      // data-aos-offset="250"
-      className="box product bg-[#fff] p-5 relative rounded-[8px] shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5 hover:scale-105 transition ease-in-out duration-500 cursor-pointer"
-    >
-      <div className="img">
-        <Skeleton
-          variant="rounded"
-          width="100%"
-          height={160}
-        />
-      </div>
-      <Skeleton variant="text" width="80%"/>
-      <Skeleton variant="text" width="60%" />
-    </div>
+        <div
+          // data-aos="zoom-in-up"
+          // data-aos-duration="200"
+          // data-aos-offset="250"
+          className="box product bg-[#fff] p-5 relative rounded-[8px] shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5 hover:scale-105 transition ease-in-out duration-500 cursor-pointer">
+          <div className="img">
+            <div id="skeleton-animation" className="w-full h-40 rounded-md flex items-center justify-center">
+              <svg className="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+              </svg>
+            </div>
+          </div>
+          <div className="w-10/12 h-4 rounded-md mt-2" id="skeleton-animation"></div>
+          <div className="w-1/2 h-4 rounded-md mt-2" id="skeleton-animation"></div>
+        </div>
         {Ddata.map((value, index) => {
           return (
-              <div
-                key={index}
-                // data-aos="zoom-in-up"
-                // data-aos-duration="200"
-                // data-aos-offset="250"
-                className="box product bg-[#fff] p-5 relative rounded-[8px] shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5 hover:scale-105 transition ease-in-out duration-500 cursor-pointer"
-                // className="box product bg-[#fff] p-5 relative rounded-[8px] shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5 hover:scale-105 transition ease-in-out duration-500 cursor-pointer hover:shadow-[rgba(0,0,0,0.1)_0px_10px_15px_-3px,rgba(0,0,0,0.05)_0px_4px_6px_-2px]"
-              >
-                <div className="img">
-                  <img
-                    className="w-full h-full"
-                    src={value.cover}
-                    alt=""
-                    width="100%"
-                  />
-                </div>
-                <h4 className="font-norma">{value.name}</h4>
-                <span className="text-secondary text-sm font-medium">
-                  {value.price}
-                </span>
+            <div
+              key={index}
+              // data-aos="zoom-in-up"
+              // data-aos-duration="200"
+              // data-aos-offset="250"
+              className="box product bg-[#fff] p-5 relative rounded-[8px] shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5 hover:scale-105 transition ease-in-out duration-500 cursor-pointer"
+              // className="box product bg-[#fff] p-5 relative rounded-[8px] shadow-[rgb(3,0,71/9%)_0px_1px_3px] m-2.5 hover:scale-105 transition ease-in-out duration-500 cursor-pointer hover:shadow-[rgba(0,0,0,0.1)_0px_10px_15px_-3px,rgba(0,0,0,0.05)_0px_4px_6px_-2px]"
+            >
+              <div className="img">
+                <img className="w-full h-full" src={value.cover} alt="" width="100%" />
               </div>
+              <h4 className="font-norma">{value.name}</h4>
+              <span className="text-secondary text-sm font-medium">{value.price}</span>
+            </div>
           );
         })}
       </Slider>

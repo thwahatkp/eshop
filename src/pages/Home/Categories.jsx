@@ -28,7 +28,7 @@ const Categories = () => {
             }
             return (
               <div className="box transition py-0 px-5 flex f_flex hover:text-primary hover:shadow-md rounded-xl cursor-pointer" key={index}>
-                <img className="w-[30px] h-[30px] mt-[10px] object-contain" src={import.meta.env.VITE_API_URL + value.img} alt="" />
+                <img className="w-[30px] h-[30px] mt-[10px] object-contain" src={import.meta.env.VITE_API_URL_CYCLIC + value.img} alt="" />
                 <span className="my-[10px] mx-5">{value.name}</span>
               </div>
             );

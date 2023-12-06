@@ -3,9 +3,9 @@ import { Link, NavLink } from "react-router-dom";
 
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { post } from "../../helper/axiosHelper";
-import { logout } from "../../redux/reducers/user";
-import Cookies from "js-cookie";
+// import { post } from "../../helper/axiosHelper";
+// import { logout } from "../../redux/reducers/user";
+// import Cookies from "js-cookie";
 import { handleLogout } from "../functions/logout";
 
 // import { sidebar } from "../../redux/reducers/layout";
@@ -58,7 +58,9 @@ const Search = () => {
     <section className="py-5 pb-2 md:pb-5">
       <div className="max-w-[90%] mx-auto grid grid-cols-3 md:grid-cols-[15%_68%_15%] gap-6">
         <div className="">
-          <img className="w-32 md:w-auto h-auto" src="images/eshop-full.svg" alt="" />
+          <Link to={"/"}>
+            <img className="w-32 md:w-auto h-auto" src="images/eshop-full.svg" alt="" />
+          </Link>
         </div>
 
         <div className="block md:hidden"></div>

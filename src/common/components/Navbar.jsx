@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { category, sidebar } from "../../redux/reducers/layout";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -21,105 +22,65 @@ const Navbar = () => {
           <div
             className={`${
               !isHome && "opacity-0"
-            } h-10 lg:h-10  opacityl-100 transition ease-in-out  duration-500 bg-[#f6f9fc] py-0 md:px-[30px] rounded-[5px] mt-[5px] flex justify-between items-center cursor-pointer`}
-          >
+            } h-10 lg:h-10  opacityl-100 transition ease-in-out  duration-500 bg-[#f6f9fc] py-0 md:px-[30px] rounded-[5px] mt-[5px] flex justify-between items-center cursor-pointer`}>
             <span className="fa-solid fa-border-all mr-2 md:mr-5 text-xl lg:text-[30px] relative top-1/2 -translate-y-1/2"></span>
-            <h4
-              onClick={() => dispatch(category(!layout.category))}
-              className="text-sm lg:text-base font-medium mt-2.5 md:mt-3"
-            >
-              Categories{" "}
-              <i
-                className={`fa ${
-                  layout.category ? "fa-chevron-up" : "fa-chevron-down"
-                } ml-[10px] transition`}
-              ></i>
+            <h4 onClick={() => dispatch(category(!layout.category))} className="text-sm lg:text-base font-medium mt-2.5 md:mt-3">
+              Categories <i className={`fa ${layout.category ? "fa-chevron-up" : "fa-chevron-down"} ml-[10px] transition`}></i>
             </h4>
           </div>
           <div></div>
 
           <i
             onClick={() => dispatch(sidebar(true))}
-            className="lg:hidden fa-solid fa-bars text-center leading-[50px] ml-3 text-xl cursor-pointer"
-          ></i>
+            className="lg:hidden fa-solid fa-bars text-center leading-[50px] ml-3 text-xl cursor-pointer"></i>
 
-          <div className="hidden lg:block">
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} className="hidden lg:block">
             <ul className={`capitalize flex leading-[11vh] space-x-[30px]`}>
               {/*<ul className='link f_flex uppercase {MobileMenu ? "nav-links-MobileMenu" : "nav-links"} onClick={() => setMobileMenu(false)}'>*/}
-              <li>
+              <motion.li>
                 <NavLink
-                  className={({ isActive }) =>
-                    `${
-                      isActive && "text-primary"
-                    } transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`
-                  }
-                  to="/"
-                >
+                  className={({ isActive }) => `${isActive && "text-primary"} transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`}
+                  to="/">
                   home
                 </NavLink>
-              </li>
+              </motion.li>
               <li>
                 <NavLink
-                  className={({ isActive }) =>
-                    `${
-                      isActive && "text-primary"
-                    } transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`
-                  }
-                  to="/pages"
-                >
+                  className={({ isActive }) => `${isActive && "text-primary"} transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`}
+                  to="/pages">
                   pages
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  className={({ isActive }) =>
-                    `${
-                      isActive && "text-primary"
-                    } transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`
-                  }
-                  to="/user"
-                >
+                  className={({ isActive }) => `${isActive && "text-primary"} transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`}
+                  to="/user">
                   user account
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  className={({ isActive }) =>
-                    `${
-                      isActive && "text-primary"
-                    } transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`
-                  }
-                  to="/vendor"
-                >
+                  className={({ isActive }) => `${isActive && "text-primary"} transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`}
+                  to="/vendor">
                   vendor account
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  className={({ isActive }) =>
-                    `${
-                      isActive && "text-primary"
-                    } transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`
-                  }
-                  to="/track"
-                >
+                  className={({ isActive }) => `${isActive && "text-primary"} transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`}
+                  to="/track">
                   track my order
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  className={({ isActive }) =>
-                    `${
-                      isActive && "text-primary"
-                    } transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`
-                  }
-                  to="/contact"
-                >
+                  className={({ isActive }) => `${isActive && "text-primary"} transition-[0.5s] text-[15px] font-normal hover:text-primary-hover`}
+                  to="/contact">
                   contact
                 </NavLink>
               </li>
             </ul>
-          </div>
+          </motion.div>
         </div>
       </header>
     </>

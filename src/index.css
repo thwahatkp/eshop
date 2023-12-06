@@ -47,7 +47,8 @@ html {
 }
 .control-btn .prev:hover,
 .control-btn .next:hover {
-  background: #007dfeaf;
+  background: #e94560;
+  /* background: #007dfeaf; */
   color: #0f33604b;
   cursor: pointer;
 }

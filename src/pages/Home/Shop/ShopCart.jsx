@@ -1,6 +1,6 @@
 import { Skeleton } from "@mui/material";
 import { useState } from "react";
-
+import { motion } from "framer-motion";
 const ShopCart = () => {
   const shopItems = [
     {
@@ -74,32 +74,30 @@ const ShopCart = () => {
 
   return (
     <>
-    <div className="box grid">
-      <div className="product mtop bg-white p-5 relative rounded-[8px] shadow m-2.5">
-        <div className="img">
-          <Skeleton
-            variant="rounded"
-            width={"auto"}
-            height={207}
-            style={{ marginBottom: "10px" }}
-          />
-        </div>
-        <div className="product-details font-normal text-[17px]">
-          <Skeleton variant="text" width={150} style={{ marginBottom: "10px" }} />
-          <Skeleton animation="wave" variant="text" width={100} style={{ marginBottom: "5px" }} />
-          <div className="price flex justify-between text-secondary"> 
-            <Skeleton animation="wave" variant="text" width={80} />
-            <Skeleton animation="wave" variant="rounded" width={40} height={40} />
+      <motion.div initial={{ opacity: 0.8, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ stiffness: 200 }} className="box grid">
+        <div className="product mtop bg-white p-5 relative rounded-[8px] shadow m-2.5">
+          <div className="img">
+            <Skeleton variant="rounded" width={"auto"} height={207} style={{ marginBottom: "10px" }} />
+          </div>
+          <div className="product-details font-normal text-[17px]">
+            <Skeleton variant="text" width={150} style={{ marginBottom: "10px" }} />
+            <Skeleton animation="wave" variant="text" width={100} style={{ marginBottom: "5px" }} />
+            <div className="price flex justify-between text-secondary">
+              <Skeleton animation="wave" variant="text" width={80} />
+              <Skeleton animation="wave" variant="rounded" width={40} height={40} />
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
       {shopItems.map((shopItems, index) => {
         return (
-          <div
+          <motion.div
+            initial={{ opacity: 0.8, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ stiffness: 200 }}
+            // viewport={{ once: true }}
             key={index}
-            className="box grid transition ease-in-out duration-700 hover:scale-105 cursor-pointer"
-          >
+            className="box grid transition cursor-pointer">
             <div className="product mtop bg-white p-5 relative rounder-[8px] shadow m-2.5">
               <div className="img">
                 <span className="discount absolute top-0 left-0 bg-secondary py-[3px] px-2.5 text-[12px] rounded-[50px] text-white m-2.5">
@@ -107,14 +105,8 @@ const ShopCart = () => {
                 </span>
                 <img className="w-full h-full" src={shopItems.cover} alt="" />
                 <div className="product-like absolute top-0 right-0 m-2.5 /*opacity-0*/ transition">
-                  <label className="bg-[#0f3460] py-[1px] px-2.5 text-[12px] text-white rounded-[50px]">
-                    {count}
-                  </label>{" "}
-                  <br />
-                  <i
-                    className="fa-regular fa-heart text-[20px] my-2.5 mx-[3px]"
-                    onClick={increment}
-                  ></i>
+                  <label className="bg-[#0f3460] py-[1px] px-2.5 text-[12px] text-white rounded-[50px]">{count}</label> <br />
+                  <i className="fa-regular fa-heart text-[20px] my-2.5 mx-[3px]" onClick={increment}></i>
                 </div>
               </div>
               <div className="product-details font-normal text-[17px]">
@@ -138,7 +130,7 @@ const ShopCart = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         );
       })}
     </>

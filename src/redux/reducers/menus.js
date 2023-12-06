@@ -3,7 +3,7 @@ import axios from "axios";
 
 const getCategories = createAsyncThunk("category menu", () =>
   axios
-    .get("menu/category")
+    .get(`${import.meta.env.VITE_API_URL_CYCLIC}menu/category `)
     .then((res) => res.data.data)
     .catch((err) => err.response.data)
 );

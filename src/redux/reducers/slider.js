@@ -3,7 +3,7 @@ import axios from "axios";
 
 const getSlider = createAsyncThunk("slider card", () =>
   axios
-    .get("slider")
+    .get(`${import.meta.env.VITE_API_URL_CYCLIC}slider`)
     .then((res) => res.data.data)
     .catch((err) => err.response.data)
 );
