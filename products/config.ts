@@ -1,0 +1,9 @@
+export const PORT = process.env.PORT;
+export const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
+export const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
+export const SESSION_SECRET = process.env.SESSION_SECRET;
+export const DB_URL = process.env.DB_URL;
+export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+export const GOOGLE_CLIENT_ID_SECRET = process.env.GOOGLE_CLIENT_ID_SECRET;
+export const CLIENT_URL = process.env.CLIENT_URL;
+export const LOG_DIR = process.env.LOG_DIR;
